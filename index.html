@@ -11,7 +11,6 @@
 
 <title>SHANFILX</title>
 
-<!-- 5G Speed Optimization: Preconnect to critical domains -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://shanfilx-dcb32-default-rtdb.firebaseio.com">
@@ -21,7 +20,6 @@
 
 <style>
 :root{
-    /* Updated Color Palette */
     --bg-dark:      #05070A;
     --bg-main:      #05070A;
     --bg-card:      #17212D;
@@ -121,7 +119,6 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
     touch-action:manipulation;
 }
 
-/* Hardware Acceleration for Smooth 120Hz/5G Feel */
 .card, .btn, .hero-thumb, .avatar, .close {
     will-change: transform, box-shadow, background-color;
     transform: translateZ(0);
@@ -352,12 +349,6 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
 
 .btn-list:hover{
     background:rgba(92,200,255,.28);
-}
-
-.btn-resume{
-    background:linear-gradient(135deg, #3A8DFF 0%, #5CC8FF 100%);
-    color:#fff;
-    box-shadow:0 8px 24px rgba(58,141,255,.35);
 }
 
 /* ================= SECTIONS ================= */
@@ -754,6 +745,261 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
     min-height:18px;
 }
 
+/* =====================================================
+   DOWNLOAD PAGE
+===================================================== */
+.download-page{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 5% calc(60px + env(safe-area-inset-bottom));
+}
+
+.dl-back{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:22px;
+    padding:10px 18px;
+    background:rgba(92,200,255,.12);
+    border:1px solid var(--border);
+    border-radius:8px;
+    color:#fff;
+    font-weight:600;
+    font-size:13px;
+    transition:background .2s;
+}
+
+.dl-back:hover{
+    background:rgba(92,200,255,.25);
+}
+
+.dl-header{
+    display:flex;
+    gap:26px;
+    align-items:flex-start;
+    margin-bottom:30px;
+}
+
+.dl-poster{
+    width:200px;
+    height:300px;
+    object-fit:cover;
+    border-radius:12px;
+    box-shadow:0 12px 40px rgba(0,0,0,.5);
+    border:1px solid var(--border);
+    flex-shrink:0;
+    background:var(--bg-card);
+}
+
+.dl-info{
+    flex:1;
+    min-width:0;
+}
+
+.dl-info h2{
+    font-size:clamp(20px, 5vw, 28px);
+    font-weight:800;
+    color:#fff;
+    margin-bottom:12px;
+    line-height:1.2;
+}
+
+.dl-meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:16px;
+}
+
+.dl-desc{
+    color:var(--text-dim);
+    font-size:14px;
+    line-height:1.7;
+    margin-bottom:20px;
+}
+
+.dl-section-title{
+    font-size:18px;
+    font-weight:700;
+    color:#fff;
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.dl-section-title::before{
+    content:"";
+    width:4px;
+    height:20px;
+    background:linear-gradient(180deg, #5CC8FF, #3A8DFF);
+    border-radius:3px;
+    box-shadow:0 0 12px var(--accent-glow);
+}
+
+.dl-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-bottom:30px;
+}
+
+.dl-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:16px 20px;
+    background:linear-gradient(180deg, var(--bg-card) 0%, #0A1017 100%);
+    border:1px solid var(--border);
+    border-radius:12px;
+    transition:border-color .2s, transform .15s;
+}
+
+.dl-item:hover{
+    border-color:var(--accent-3);
+    transform:translateY(-2px);
+}
+
+.dl-item-left{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    min-width:0;
+}
+
+.dl-quality-icon{
+    width:44px;
+    height:44px;
+    border-radius:10px;
+    background:linear-gradient(135deg, #5CC8FF, #3A8DFF);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    color:#fff;
+    flex-shrink:0;
+    box-shadow:0 4px 14px rgba(92,200,255,.4);
+}
+
+.dl-quality-label{
+    font-size:15px;
+    font-weight:700;
+    color:#fff;
+}
+
+.dl-quality-sub{
+    font-size:12px;
+    color:var(--text-soft);
+    margin-top:3px;
+}
+
+.dl-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:12px 22px;
+    background:linear-gradient(135deg, #5CC8FF 0%, #3A8DFF 100%);
+    color:#fff;
+    border:0;
+    border-radius:10px;
+    font-weight:700;
+    font-size:13px;
+    white-space:nowrap;
+    box-shadow:0 8px 24px rgba(92,200,255,.35);
+    transition:transform .15s, box-shadow .2s;
+    cursor:pointer;
+}
+
+.dl-btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 12px 32px rgba(92,200,255,.5);
+}
+
+.dl-btn:active{
+    transform:scale(.96);
+}
+
+.dl-btn.downloading{
+    background:linear-gradient(135deg, #8B9AA8, #5a6a7a);
+    pointer-events:none;
+}
+
+.dl-note{
+    padding:18px 20px;
+    background:rgba(92,200,255,.08);
+    border:1px solid var(--border);
+    border-radius:12px;
+    color:var(--text-dim);
+    font-size:13px;
+    line-height:1.7;
+    margin-bottom:20px;
+}
+
+.dl-note strong{
+    color:var(--accent-3);
+}
+
+.dl-ep-section{
+    margin-bottom:24px;
+}
+
+.dl-ep-selects{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:14px;
+}
+
+.dl-ep-grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    max-height:230px;
+    overflow-y:auto;
+    padding-right:2px;
+}
+
+.dl-ep-grid::-webkit-scrollbar{
+    width:5px;
+}
+
+.dl-ep-grid::-webkit-scrollbar-thumb{
+    background:rgba(92,200,255,.4);
+    border-radius:4px;
+}
+
+.dl-ep-btn{
+    min-width:44px;
+    height:38px;
+    padding:0 12px;
+    border-radius:6px;
+    border:1px solid var(--border);
+    background:rgba(92,200,255,.1);
+    color:var(--text-dim);
+    font-weight:700;
+    font-size:12px;
+    transition:.2s;
+    cursor:pointer;
+}
+
+.dl-ep-btn:hover{
+    background:rgba(92,200,255,.26);
+    color:#fff;
+    border-color:var(--accent-3);
+}
+
+.dl-ep-btn:active{
+    transform:scale(.96);
+}
+
+.dl-ep-btn.active{
+    background:linear-gradient(135deg, #5CC8FF, #3A8DFF);
+    border-color:transparent;
+    color:#fff;
+    box-shadow:0 6px 18px rgba(92,200,255,.45);
+}
+
 /* ================= MODAL ================= */
 .modal{
     position:fixed;
@@ -797,20 +1043,6 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
 .close:hover{
     background:var(--bg-elev);
     transform:rotate(90deg);
-}
-
-.video-box{
-    width:100%;
-    background:#000;
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 20px 60px rgba(0,0,0,.7), 0 0 0 1px rgba(92,200,255,.2);
-}
-
-.video-box video{
-    width:100%;
-    max-height:75vh;
-    display:block;
 }
 
 /* ================= DETAIL PAGE ================= */
@@ -898,7 +1130,6 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
     background:rgba(255,215,0,.08);
 }
 
-/* Android Compact Detail Buttons */
 .detail-actions{
     display:grid;
     grid-template-columns:repeat(2,1fr);
@@ -930,140 +1161,6 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
 .d-btn:active {
     transform: scale(0.96);
     background: rgba(92,200,255,0.3);
-}
-
-/* ---- RESOURCES ---- */
-.resources{
-    margin-top:26px;
-    background:linear-gradient(180deg, var(--bg-card) 0%, #0A1017 100%);
-    border:1px solid var(--border);
-    border-radius:14px;
-    padding:16px;
-    box-shadow:0 12px 40px rgba(0,0,0,.35);
-}
-
-.res-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:14px;
-}
-
-.res-title{
-    font-size:15px;
-    font-weight:700;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-.res-title::before{
-    content:"";
-    width:4px;
-    height:16px;
-    background:linear-gradient(180deg, #5CC8FF, #3A8DFF);
-    border-radius:3px;
-    box-shadow:0 0 12px var(--accent-glow);
-}
-
-.res-uploader{
-    font-size:12px;
-    color:var(--accent-3);
-    font-weight:600;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.res-selects{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-bottom:16px;
-}
-
-.res-selects .setting-select{
-    width:100%;
-    min-width:0;
-}
-
-.ep-grid{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    max-height:230px;
-    overflow-y:auto;
-    padding-right:2px;
-}
-
-.ep-grid::-webkit-scrollbar{
-    width:5px;
-}
-
-.ep-grid::-webkit-scrollbar-thumb{
-    background:rgba(92,200,255,.4);
-    border-radius:4px;
-}
-
-.ep-btn{
-    min-width:40px;
-    height:36px;
-    padding:0 10px;
-    border-radius:6px;
-    border:1px solid var(--border);
-    background:rgba(92,200,255,.1);
-    color:var(--text-dim);
-    font-weight:700;
-    font-size:12px;
-    transition:.2s;
-}
-
-.ep-btn:hover{
-    background:rgba(92,200,255,.26);
-    color:#fff;
-    border-color:var(--accent-3);
-}
-
-.ep-btn:active {
-    transform: scale(0.96);
-}
-
-.ep-btn.active{
-    background:linear-gradient(135deg, #5CC8FF, #3A8DFF);
-    border-color:transparent;
-    color:#fff;
-    box-shadow:0 6px 18px rgba(92,200,255,.45);
-}
-
-.ep-btn.all-btn{
-    letter-spacing:.5px;
-    font-size:11px;
-}
-
-/* ---- FOR YOU ---- */
-.foryou{
-    margin-top:28px;
-}
-
-.sub-title{
-    font-size:16px;
-    font-weight:700;
-    color:#fff;
-    margin-bottom:13px;
-    display:flex;
-    align-items:center;
-    gap:9px;
-}
-
-.sub-title::before{
-    content:"";
-    width:4px;
-    height:16px;
-    background:linear-gradient(180deg, #5CC8FF, #3A8DFF);
-    border-radius:3px;
-    box-shadow:0 0 12px var(--accent-glow);
 }
 
 /* ================= PROFILE ================= */
@@ -1863,10 +1960,6 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
         padding:calc(66px + env(safe-area-inset-top)) 12px calc(50px + env(safe-area-inset-bottom));
     }
 
-    .video-box video{
-        max-height:42vh;
-    }
-
     .detail-actions{
         grid-template-columns:1fr 1fr;
         gap:6px;
@@ -1879,20 +1972,44 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
         gap:4px;
     }
 
-    .res-selects{
+    /* Download page mobile */
+    .download-page{
+        padding:0 15px calc(90px + env(safe-area-inset-bottom));
+    }
+
+    .dl-header{
+        flex-direction:column;
+        gap:18px;
+    }
+
+    .dl-poster{
+        width:100%;
+        height:220px;
+        object-fit:contain;
+        background:#000;
+    }
+
+    .dl-item{
+        flex-direction:column;
+        align-items:stretch;
+        gap:12px;
+    }
+
+    .dl-btn{
+        justify-content:center;
+        width:100%;
+    }
+
+    .dl-ep-selects{
         grid-template-columns:1fr 1fr;
         gap:8px;
     }
 
-    .ep-btn{
-        min-width:40px;
-        height:36px;
+    .dl-ep-btn{
+        min-width:44px;
+        height:38px;
         font-size:12px;
         padding:0 10px;
-    }
-
-    .resources{
-        padding:14px;
     }
 }
 
@@ -1915,426 +2032,6 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
     .hero-content-wrapper{ margin-bottom: 10px; }
     .hero-title{ font-size:26px; }
     .hero-desc{ -webkit-line-clamp:2; }
-}
-
-/* =====================================================
-   NETFLIX-STYLE CUSTOM VIDEO PLAYER
-===================================================== */
-
-#videoBox{
-    position:relative;
-    background:#000;
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 20px 60px rgba(0,0,0,.7), 0 0 0 1px rgba(92,200,255,.2);
-    line-height:0;
-    -webkit-user-select:none;
-    user-select:none;
-}
-
-#videoBox video{
-    width:100%;
-    max-height:75vh;
-    display:block;
-    background:#000;
-    outline:none;
-}
-
-#videoBox.hide-ui{ cursor:none; }
-
-#videoBox.hide-ui .vp-top,
-#videoBox.hide-ui .vp-bottom,
-#videoBox.hide-ui .vp-center-controls,
-#videoBox.hide-ui .vp-skip{
-    opacity:0 !important;
-    pointer-events:none !important;
-}
-
-/* ---------- TOP BAR ---------- */
-.vp-top{
-    position:absolute; top:0; left:0; right:0;
-    display:flex; align-items:center; gap:12px;
-    padding:14px 16px 36px;
-    background:linear-gradient(180deg, rgba(0,0,0,.88) 0%, rgba(0,0,0,.45) 45%, transparent 100%);
-    z-index:8;
-    transition:opacity .25s;
-    line-height:1.2;
-}
-
-.vp-titles{ flex:1; min-width:0; }
-
-.vp-title{
-    font-size:14px; font-weight:700; color:#fff;
-    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-    text-shadow:0 2px 10px rgba(0,0,0,.8);
-}
-
-.vp-sub{
-    font-size:11px; color:#b9c7d4; margin-top:3px;
-    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-}
-
-.vp-grow{ flex:1; }
-
-/* ---------- ICON BUTTONS ---------- */
-.vp-icon{
-    width:38px; height:38px; flex-shrink:0;
-    border-radius:50%;
-    border:0;
-    background:rgba(255,255,255,.10);
-    color:#fff;
-    font-size:15px;
-    display:flex; align-items:center; justify-content:center;
-    transition:background .18s, transform .12s;
-    backdrop-filter:blur(6px);
-    -webkit-backdrop-filter:blur(6px);
-    padding:0;
-    line-height:1;
-}
-
-.vp-icon:hover{ background:rgba(92,200,255,.32); }
-.vp-icon:active{ transform:scale(.9); }
-
-.vp-txt{
-    background:rgba(255,255,255,.10);
-    border:0; color:#fff;
-    height:32px; padding:0 12px;
-    border-radius:16px;
-    font-size:12px; font-weight:700;
-    display:flex; align-items:center;
-    transition:background .18s;
-    backdrop-filter:blur(6px);
-    -webkit-backdrop-filter:blur(6px);
-    flex-shrink:0;
-}
-.vp-txt:hover{ background:rgba(92,200,255,.32); }
-
-/* ---------- BOTTOM BAR ---------- */
-.vp-bottom{
-    position:absolute; left:0; right:0; bottom:0;
-    padding:36px 16px 12px;
-    background:linear-gradient(0deg, rgba(0,0,0,.92) 0%, rgba(0,0,0,.55) 45%, transparent 100%);
-    z-index:8;
-    transition:opacity .25s;
-    line-height:1;
-}
-
-.vp-btns{
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-.vp-time{
-    font-size:12px; color:#dbe7f0; font-weight:600;
-    font-variant-numeric:tabular-nums;
-    white-space:nowrap;
-    margin-left:4px;
-    text-shadow:0 1px 6px rgba(0,0,0,.85);
-}
-
-/* ---------- PROGRESS ---------- */
-.vp-progress{
-    position:relative;
-    height:5px;
-    margin:0 2px 12px;
-    border-radius:4px;
-    background:rgba(255,255,255,.26);
-    cursor:pointer;
-    touch-action:none;
-    transition:height .15s;
-}
-
-.vp-progress::before{
-    content:"";
-    position:absolute;
-    left:-8px; right:-8px; top:-9px; bottom:-9px;
-}
-
-.vp-progress:hover{ height:8px; }
-
-.vp-buffer{
-    position:absolute; left:0; top:0; bottom:0;
-    width:0;
-    background:rgba(255,255,255,.42);
-    border-radius:4px;
-    pointer-events:none;
-}
-
-.vp-played{
-    position:absolute; left:0; top:0; bottom:0;
-    width:0;
-    background:linear-gradient(90deg,#3A8DFF,#5CC8FF);
-    border-radius:4px;
-    box-shadow:0 0 12px var(--accent-glow);
-    pointer-events:none;
-}
-
-.vp-thumb{
-    position:absolute; top:50%; left:0;
-    width:14px; height:14px;
-    margin-left:-7px;
-    border-radius:50%;
-    background:#fff;
-    transform:translateY(-50%) scale(0);
-    transition:transform .15s;
-    box-shadow:0 0 12px rgba(92,200,255,.9);
-    pointer-events:none;
-}
-
-.vp-progress:hover .vp-thumb,
-.vp-progress.dragging .vp-thumb{
-    transform:translateY(-50%) scale(1);
-}
-
-/* ---------- VOLUME ---------- */
-.vp-vol{
-    -webkit-appearance:none;
-    appearance:none;
-    width:72px;
-    height:4px;
-    border-radius:4px;
-    background:rgba(255,255,255,.3);
-    outline:none;
-    cursor:pointer;
-    flex-shrink:0;
-}
-
-.vp-vol::-webkit-slider-thumb{
-    -webkit-appearance:none;
-    width:12px; height:12px;
-    border-radius:50%;
-    background:#5CC8FF;
-    box-shadow:0 0 8px var(--accent-glow);
-    cursor:pointer;
-}
-
-.vp-vol::-moz-range-thumb{
-    width:12px; height:12px;
-    border:0;
-    border-radius:50%;
-    background:#5CC8FF;
-    box-shadow:0 0 8px var(--accent-glow);
-    cursor:pointer;
-}
-
-/* ---------- CENTER CONTROLS (Removed) ---------- */
-/* Center play button is removed. Touch/click in center toggles play/pause. */
-
-/* ---------- SPINNER ---------- */
-.vp-spin{
-    position:absolute; top:50%; left:50%;
-    width:54px; height:54px;
-    margin:-27px 0 0 -27px;
-    border-radius:50%;
-    border:4px solid rgba(255,255,255,.18);
-    border-top-color:#5CC8FF;
-    animation:spin .9s linear infinite;
-    z-index:6;
-    display:none;
-    box-shadow:0 0 24px rgba(92,200,255,.45);
-    pointer-events:none;
-}
-
-.vp-spin.show{ display:block; }
-
-/* ---------- DOUBLE-TAP RIPPLES ---------- */
-.vp-ripple{
-    position:absolute; top:50%;
-    transform:translateY(-50%);
-    width:84px; height:84px;
-    border-radius:50%;
-    background:rgba(5,7,10,.6);
-    border:1px solid rgba(92,200,255,.5);
-    color:#fff;
-    display:flex; align-items:center; justify-content:center;
-    font-size:12px; font-weight:800;
-    letter-spacing:.3px;
-    opacity:0; pointer-events:none;
-    transition:opacity .25s;
-    z-index:7;
-    backdrop-filter:blur(6px);
-    -webkit-backdrop-filter:blur(6px);
-}
-
-.vp-ripple.left{ left:7%; }
-.vp-ripple.right{ right:7%; }
-.vp-ripple.show{ opacity:1; }
-
-/* ---------- SKIP INTRO ---------- */
-.vp-skip{
-    position:absolute; right:16px; bottom:98px;
-    background:rgba(255,255,255,.94);
-    color:#05070A;
-    border:0;
-    padding:11px 22px;
-    border-radius:6px;
-    font-size:13px; font-weight:800;
-    letter-spacing:.3px;
-    z-index:8;
-    opacity:0; pointer-events:none;
-    transform:translateY(8px);
-    transition:opacity .25s, transform .25s, background .2s;
-}
-
-.vp-skip.show{
-    opacity:1;
-    pointer-events:auto;
-    transform:translateY(0);
-}
-
-.vp-skip:hover{ background:#5CC8FF; }
-
-/* ---------- NEXT EPISODE ---------- */
-.vp-next{
-    position:absolute; right:16px; bottom:98px;
-    width:232px;
-    background:rgba(10,16,23,.96);
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:14px;
-    z-index:9;
-    opacity:0; pointer-events:none;
-    transform:translateY(10px);
-    transition:opacity .3s, transform .3s;
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
-    box-shadow:0 18px 50px rgba(0,0,0,.75);
-    line-height:1.3;
-    text-align:left;
-}
-
-.vp-next.show{
-    opacity:1;
-    pointer-events:auto;
-    transform:translateY(0);
-}
-
-.vp-next-label{
-    font-size:10px;
-    text-transform:uppercase;
-    letter-spacing:1.2px;
-    color:var(--accent-3);
-    font-weight:800;
-}
-
-.vp-next-title{
-    font-size:13px;
-    color:#fff;
-    font-weight:600;
-    margin:6px 0 12px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.vp-next-btn{
-    width:100%; height:38px;
-    border:0; border-radius:8px;
-    background:linear-gradient(135deg,#5CC8FF,#3A8DFF);
-    color:#fff; font-weight:800; font-size:12.5px;
-    box-shadow:0 8px 22px rgba(92,200,255,.4);
-    transition:transform .15s;
-}
-
-.vp-next-btn:active{ transform:scale(.96); }
-
-/* ---------- SPEED MENU ---------- */
-.vp-menu{
-    position:absolute; right:16px; bottom:78px;
-    background:rgba(10,16,23,.97);
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:8px;
-    min-width:172px;
-    z-index:10;
-    display:none;
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
-    box-shadow:0 18px 50px rgba(0,0,0,.75);
-    line-height:1.2;
-}
-
-.vp-menu.show{
-    display:block;
-    animation:vpFade .18s ease both;
-}
-
-@keyframes vpFade{
-    from{ opacity:0; transform:translateY(8px); }
-    to  { opacity:1; transform:none; }
-}
-
-.vp-menu-head{
-    font-size:10px;
-    text-transform:uppercase;
-    letter-spacing:1.1px;
-    color:var(--text-soft);
-    font-weight:800;
-    padding:6px 10px 8px;
-}
-
-.vp-menu-item{
-    display:block;
-    width:100%;
-    background:none;
-    border:0;
-    color:#fff;
-    text-align:left;
-    padding:10px 12px;
-    border-radius:8px;
-    font-size:13px;
-    font-weight:500;
-    transition:background .15s;
-    line-height:1.2;
-}
-
-.vp-menu-item:hover{ background:rgba(92,200,255,.16); }
-
-.vp-menu-item.active{
-    color:#5CC8FF;
-    font-weight:800;
-    background:rgba(92,200,255,.12);
-}
-
-/* ---------- FULLSCREEN ---------- */
-#videoBox:fullscreen,
-#videoBox:-webkit-full-screen{
-    border-radius:0;
-    box-shadow:none;
-    width:100vw;
-    height:100vh;
-    max-height:none;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#000;
-}
-
-#videoBox:fullscreen video,
-#videoBox:-webkit-full-screen video{
-    max-height:100vh;
-    height:100%;
-    width:100%;
-    object-fit:contain;
-}
-
-/* ---------- PLAYER MOBILE ---------- */
-@media(max-width:700px){
-    #videoBox video{ max-height:56vh; }
-    .vp-vol{ display:none !important; }
-    .vp-icon{ width:34px; height:34px; font-size:14px; }
-    .vp-top{ padding:10px 12px 28px; gap:8px; }
-    .vp-title{ font-size:12.5px; }
-    .vp-sub{ font-size:10px; }
-    .vp-bottom{ padding:28px 12px 10px; }
-    .vp-btns{ gap:6px; }
-    .vp-time{ font-size:11px; margin-left:2px; }
-    .vp-skip{ right:12px; bottom:88px; padding:9px 16px; font-size:12px; }
-    .vp-next{ right:12px; bottom:88px; width:190px; padding:12px; }
-    .vp-menu{ right:12px; bottom:70px; min-width:154px; }
-    .vp-ripple{ width:68px; height:68px; font-size:11px; }
-    .vp-txt{ height:30px; padding:0 10px; font-size:11px; }
 }
 </style>
 </head>
@@ -2393,7 +2090,7 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
                 </p>
 
                 <div class="hero-actions">
-                    <button class="btn btn-play" onclick="playHero()">▶ Play</button>
+                    <button class="btn btn-play" onclick="playHero()">⬇ Download</button>
                     <button class="btn btn-list" onclick="addHeroToList()">+ My List</button>
                 </div>
             </div>
@@ -2445,6 +2142,41 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
 <section id="kdrama" class="page">
     <h1 class="page-title">K-Drama</h1>
     <div class="grid" id="kdramaGrid"></div>
+</section>
+
+<!-- DOWNLOAD PAGE -->
+<section id="downloadPage" class="page">
+    <div class="download-page">
+        <button class="dl-back" onclick="closeDownloadPage()">← Back</button>
+
+        <div class="dl-header">
+            <img id="dlPoster" class="dl-poster" src="" alt="Poster">
+            <div class="dl-info">
+                <h2 id="dlTitle">—</h2>
+                <div class="dl-meta" id="dlMeta"></div>
+                <p class="dl-desc" id="dlDesc"></p>
+            </div>
+        </div>
+
+        <!-- Episode/Season selector (only for TV/K-Drama) -->
+        <div class="dl-ep-section hidden" id="dlEpSection">
+            <h3 class="dl-section-title">Select Episode</h3>
+            <div class="dl-ep-selects">
+                <select class="setting-select" id="dlLang" onchange="onDlLangChange(this.value)"></select>
+                <select class="setting-select" id="dlSeason" onchange="onDlSeasonChange(this.value)"></select>
+            </div>
+            <div class="dl-ep-grid" id="dlEpGrid"></div>
+        </div>
+
+        <h3 class="dl-section-title">Available Downloads</h3>
+        <div class="dl-list" id="dlList"></div>
+
+        <div class="dl-note">
+            <strong>ℹ️ Note:</strong> Download links are available in multiple qualities.
+            Choose your preferred quality and click the download button.
+            If a link is not working, please try another quality option.
+        </div>
+    </div>
 </section>
 
 <!-- MY LIST -->
@@ -2556,13 +2288,13 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
     </h1>
 
     <div class="profile">
-        <div class="settings-group-title">Playback</div>
+        <div class="settings-group-title">Downloads</div>
 
         <div class="profile-box" style="padding:8px 20px">
             <div class="setting-row">
                 <div>
-                    <div class="setting-label">Video Quality</div>
-                    <div class="setting-desc">Select preferred streaming quality</div>
+                    <div class="setting-label">Preferred Quality</div>
+                    <div class="setting-desc">Default download quality</div>
                 </div>
                 <select class="setting-select" id="setVideoQuality"
                     onchange="saveSelectSetting('setVideoQuality', this.value)">
@@ -2576,24 +2308,12 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
 
             <div class="setting-row">
                 <div>
-                    <div class="setting-label">Autoplay</div>
-                    <div class="setting-desc">Auto play videos when opened</div>
+                    <div class="setting-label">Wi-Fi Only Downloads</div>
+                    <div class="setting-desc">Download only on Wi-Fi</div>
                 </div>
                 <label class="switch">
                     <input type="checkbox" id="setAutoplay"
                         onchange="saveSetting('setAutoplay',this.checked)" checked>
-                    <span class="slider"></span>
-                </label>
-            </div>
-
-            <div class="setting-row">
-                <div>
-                    <div class="setting-label">Autoplay Next Episode</div>
-                    <div class="setting-desc">Play next episode automatically</div>
-                </div>
-                <label class="switch">
-                    <input type="checkbox" id="setAutoplayNext"
-                        onchange="saveSetting('setAutoplayNext',this.checked)" checked>
                     <span class="slider"></span>
                 </label>
             </div>
@@ -2626,7 +2346,7 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
             <div class="setting-row">
                 <div>
                     <div class="setting-label">Data Saver</div>
-                    <div class="setting-desc">Reduce video quality on mobile data</div>
+                    <div class="setting-desc">Reduce file size on mobile data</div>
                 </div>
                 <label class="switch">
                     <input type="checkbox" id="setDataSaver"
@@ -2637,8 +2357,8 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
 
             <div class="setting-row">
                 <div>
-                    <div class="setting-label">High Quality Streaming</div>
-                    <div class="setting-desc">Always stream in best quality</div>
+                    <div class="setting-label">High Quality Downloads</div>
+                    <div class="setting-desc">Always download in best quality</div>
                 </div>
                 <label class="switch">
                     <input type="checkbox" id="setHD"
@@ -2758,19 +2478,19 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
     <div class="profile">
         <div class="faq-item">
             <button class="faq-q" onclick="toggleFaq(this)">
-                How do I add a title to My List? <span>+</span>
+                How do I download a movie? <span>+</span>
             </button>
             <div class="faq-a">
-                Open any movie or show and tap the "+ My List" button. You must be signed in to save titles.
+                Tap on any movie poster to open the download page. Choose your preferred quality (480p, 720p, 1080p) and tap the Download button.
             </div>
         </div>
 
         <div class="faq-item">
             <button class="faq-q" onclick="toggleFaq(this)">
-                Why can't I play a video? <span>+</span>
+                Why can't I download a title? <span>+</span>
             </button>
             <div class="faq-a">
-                Make sure you are logged in and the title has a valid video source. If the problem continues, try refreshing the page.
+                Make sure you are logged in and the title has download links available. If the problem continues, try another quality option.
             </div>
         </div>
 
@@ -2797,7 +2517,7 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
                 Is SHANFILX free to use? <span>+</span>
             </button>
             <div class="faq-a">
-                Yes! Creating an account is completely free. Just sign up and start watching.
+                Yes! Creating an account is completely free. Just sign up and start downloading.
             </div>
         </div>
 
@@ -3032,138 +2752,6 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
     </div>
 </div>
 
-<!-- ============================================================
-     DETAIL MODAL
-============================================================ -->
-<div class="modal" id="detailModal">
-    <button class="close" onclick="closeDetail()">×</button>
-
-    <div class="detail-wrap">
-
-        <!-- ============ NETFLIX-STYLE CUSTOM PLAYER ============ -->
-        <div class="video-box" id="videoBox">
-
-            <video
-                id="videoPlayer"
-                playsinline
-                webkit-playsinline
-                preload="metadata"
-            ></video>
-
-            <!-- loading spinner -->
-            <div class="vp-spin" id="vpSpin"></div>
-
-            <!-- double-tap seek ripples -->
-            <div class="vp-ripple left"  id="vpRipL">« 10s</div>
-            <div class="vp-ripple right" id="vpRipR">10s »</div>
-
-            <!-- TOP BAR -->
-            <div class="vp-top" id="vpTop">
-                <button class="vp-icon" id="vpBackBtn" aria-label="Back">←</button>
-
-                <div class="vp-titles">
-                    <div class="vp-title" id="vpTitle">—</div>
-                    <div class="vp-sub"   id="vpSub"></div>
-                </div>
-
-                <button class="vp-icon" id="vpPip" aria-label="Picture in picture">▣</button>
-            </div>
-
-            <!-- SKIP INTRO -->
-            <button class="vp-skip" id="vpSkipIntro">Skip Intro ▸</button>
-
-            <!-- NEXT EPISODE -->
-            <div class="vp-next" id="vpNext">
-                <div class="vp-next-label">Next Episode</div>
-                <div class="vp-next-title" id="vpNextTitle">—</div>
-                <button class="vp-next-btn" id="vpNextPlay">▶ Play Now</button>
-            </div>
-
-            <!-- BOTTOM BAR -->
-            <div class="vp-bottom" id="vpBottom">
-
-                <div class="vp-progress" id="vpProgress">
-                    <div class="vp-buffer" id="vpBuffer"></div>
-                    <div class="vp-played" id="vpPlayed"></div>
-                    <div class="vp-thumb"  id="vpThumb"></div>
-                </div>
-
-                <div class="vp-btns">
-                    <button class="vp-icon" id="vpPlay"    aria-label="Play / Pause">▶</button>
-                    <button class="vp-icon" id="vpBack10"  aria-label="Back 10 seconds">⟲</button>
-                    <button class="vp-icon" id="vpFwd10"   aria-label="Forward 10 seconds">⟳</button>
-
-                    <button class="vp-icon" id="vpMute" aria-label="Mute">🔊</button>
-                    <input class="vp-vol" id="vpVol" type="range" min="0" max="1" step="0.05" value="1">
-
-                    <span class="vp-time" id="vpTime">0:00 / 0:00</span>
-
-                    <div class="vp-grow"></div>
-
-                    <button class="vp-txt"  id="vpSpeed">1×</button>
-                    <button class="vp-icon" id="vpFull" aria-label="Fullscreen">⛶</button>
-                </div>
-            </div>
-
-            <!-- SPEED MENU -->
-            <div class="vp-menu" id="vpMenu">
-                <div class="vp-menu-head">Playback Speed</div>
-                <button class="vp-menu-item" data-speed="0.5">0.5×</button>
-                <button class="vp-menu-item" data-speed="0.75">0.75×</button>
-                <button class="vp-menu-item active" data-speed="1">Normal (1×)</button>
-                <button class="vp-menu-item" data-speed="1.25">1.25×</button>
-                <button class="vp-menu-item" data-speed="1.5">1.5×</button>
-                <button class="vp-menu-item" data-speed="2">2×</button>
-            </div>
-
-        </div>
-        <!-- ============ /CUSTOM PLAYER ============ -->
-
-        <div class="detail-body">
-
-            <!-- TITLE ROW -->
-            <div class="detail-title-row">
-                <h2 class="detail-title" id="dTitle">—</h2>
-                <button class="detail-info-btn" onclick="toggleDetailInfo()">ⓘ</button>
-            </div>
-
-            <div class="detail-desc" id="dDesc"></div>
-
-            <div class="detail-meta" id="dMeta"></div>
-
-            <!-- ACTIONS -->
-            <div class="detail-actions">
-                <button class="d-btn" id="dListBtn" onclick="toggleCurrentList()">＋ Add to list</button>
-                <button class="d-btn" onclick="shareContent()">↗ Share</button>
-                <button class="d-btn" onclick="downloadContent()">⇩ Download</button>
-                <button class="d-btn" onclick="viewDownloads()">⇩ View download</button>
-            </div>
-
-            <!-- RESOURCES -->
-            <div class="resources hidden" id="dResources">
-                <div class="res-head">
-                    <span class="res-title">Resources</span>
-                    <span class="res-uploader" id="dUploader"></span>
-                </div>
-
-                <div class="res-selects">
-                    <select class="setting-select" id="dLang" onchange="changeLanguage(this.value)"></select>
-                    <select class="setting-select" id="dSeason" onchange="changeSeason(this.value)"></select>
-                </div>
-
-                <div class="ep-grid" id="dEpisodes"></div>
-            </div>
-
-            <!-- FOR YOU -->
-            <div class="foryou">
-                <h3 class="sub-title">For you</h3>
-                <div class="cards" id="dForYou"></div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
 <!-- FIREBASE -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -3172,17 +2760,16 @@ button, .card, .menu-item, .list-tab, .faq-q, .back-btn{
 <script>
 
 /* =====================================================
-   5G NETWORK SPEED DETECTION & OPTIMIZATION
+   NETWORK SPEED DETECTION
 ===================================================== */
 const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 let isFastNetwork = true;
 
 if (connection) {
     const type = connection.effectiveType;
-    console.log(`[SHANFILX] Network Type: ${type} | Downlink: ${connection.downlink} Mbps`);
+    console.log(`[SHANFILX] Network Type: ${type}`);
     if (type === '2g' || type === '3g' || (connection.downlink && connection.downlink < 1.5)) {
         isFastNetwork = false;
-        console.log("[SHANFILX] Slow network detected. Optimizing images...");
     }
 }
 
@@ -3223,10 +2810,9 @@ let authMode = "login";
 let myListData = [];
 let myListFilter = "all";
 
-let lastSavedSecond = 0;
 let continueWatchingData = [];
 
-let detailState = null;
+let dlState = null;
 
 const DEFAULT_POSTER =
     "https://via.placeholder.com/500x750/17212D/5CC8FF?text=SHANFILX";
@@ -3235,7 +2821,7 @@ const DEFAULT_BACKDROP =
     "https://via.placeholder.com/1600x700/17212D/5CC8FF?text=SHANFILX";
 
 /* =====================================================
-   PERFORMANCE UTILITIES
+   DEBOUNCE
 ===================================================== */
 function debounce(func, wait) {
     let timeout;
@@ -3294,7 +2880,7 @@ function switchAuth(){
 }
 
 /* =====================================================
-   TOGGLE PASSWORD VISIBILITY
+   TOGGLE PASSWORD
 ===================================================== */
 function togglePassword(inputId, iconElement) {
     const input = document.getElementById(inputId);
@@ -3386,7 +2972,7 @@ async function submitAuth(){
 }
 
 /* =====================================================
-   FIREBASE AUTH ERROR
+   FIREBASE ERROR
 ===================================================== */
 function firebaseError(code){
     const errors = {
@@ -3538,11 +3124,7 @@ function handlePhotoSelect(event){
             const sx = (img.width - minDim) / 2;
             const sy = (img.height - minDim) / 2;
 
-            ctx.drawImage(
-                img,
-                sx, sy, minDim, minDim,
-                0, 0, SIZE, SIZE
-            );
+            ctx.drawImage(img, sx, sy, minDim, minDim, 0, 0, SIZE, SIZE);
 
             const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
             savePhoto(dataUrl);
@@ -3595,7 +3177,7 @@ async function savePhoto(dataUrl){
 }
 
 /* =====================================================
-   SAVE PROFILE (NAME)
+   SAVE PROFILE
 ===================================================== */
 async function saveProfile(){
     if(!currentUser){
@@ -3740,17 +3322,12 @@ function cardHTML(item, opts){
             </div>
 
             ${timeLeft > 0 ? `<div class="card-time-left">${formatTime(timeLeft)} left</div>` : ""}
-
-            <button class="card-resume-btn"
-                onclick="event.stopPropagation();resumeFromCard('${escapeId(item.id)}','${item.type}')">
-                ▶ Resume
-            </button>
         `;
     }
 
     return `
         <div class="card"
-             onclick="openDetail('${escapeId(item.id)}','${item.type}')">
+             onclick="openDownloadPage('${escapeId(item.id)}','${item.type}')">
 
             <div class="poster-wrap">
                 <img
@@ -3828,7 +3405,7 @@ function renderAll(){
 }
 
 /* =====================================================
-   HERO SLIDER SYSTEM
+   HERO SLIDER
 ===================================================== */
 function loadHero(all){
     if(!all.length) return;
@@ -3859,7 +3436,7 @@ function renderHero(){
     document.getElementById("heroTitle").textContent = activeSlide.title || "SHANFILX";
     document.getElementById("heroRating").textContent = "★ " + (activeSlide.rating || "0.0");
     document.getElementById("heroYear").textContent = activeSlide.release || activeSlide.year || "";
-    document.getElementById("heroDesc").textContent = activeSlide.description || "Watch movies and series on SHANFILX.";
+    document.getElementById("heroDesc").textContent = activeSlide.description || "Download movies and series on SHANFILX.";
 }
 
 function switchHeroSlide(index){
@@ -3890,7 +3467,7 @@ function resetHeroAutoSlide(){
 function playHero(){
     if(!heroSlides.length) return;
     const slide = heroSlides[currentHeroIndex];
-    openDetail(slide.id, slide.type);
+    openDownloadPage(slide.id, slide.type);
 }
 
 function addHeroToList(){
@@ -3911,7 +3488,7 @@ function getContent(id,type){
 }
 
 /* =====================================================
-   EPISODE / SEASON / LANGUAGE HELPERS
+   EPISODE / SEASON HELPERS
 ===================================================== */
 function normalizeEpisodes(raw){
     const out = [];
@@ -4011,29 +3588,6 @@ function buildSeasons(item){
     return list;
 }
 
-function episodeUrl(ep, lang){
-    if(!ep) return "";
-
-    const candidates = [ep.videoUrl, ep.video, ep.url, ep.src, ep.link, ep.file];
-
-    for(const c of candidates){
-        if(!c) continue;
-        if(typeof c === "string") return c;
-        if(typeof c === "object"){
-            if(lang && typeof c[lang] === "string" && c[lang]) return c[lang];
-            const first = Object.values(c).find(v => typeof v === "string" && v);
-            if(first) return first;
-        }
-    }
-
-    if(Array.isArray(ep.sources) && ep.sources.length){
-        const s = ep.sources.find(x => x && (x.file || x.url || x.src)) || ep.sources[0];
-        if(s) return s.file || s.url || s.src || "";
-    }
-
-    return "";
-}
-
 function getLanguages(item){
     const raw = item.languages || item.language || item.audio || item.audioTracks;
     const out = [];
@@ -4054,15 +3608,74 @@ function getLanguages(item){
 }
 
 function epShortLabel(ep, index){
-    const n = (ep && (ep.number !== undefined ? ep.number : ep.ep)) ;
+    const n = (ep && (ep.number !== undefined ? ep.number : ep.ep));
     if(n !== undefined && n !== null && n !== "") return String(n).padStart(2,"0");
     return String(index + 1).padStart(2,"0");
 }
 
 /* =====================================================
-   OPEN DETAIL
+   DOWNLOAD LINKS EXTRACTOR
+   Firebase structure can have:
+   - item.downloadLinks = { "480p": "url", "720p": "url" }
+   - item.downloads = same
+   - episode.downloadLinks or episode.videoUrl
 ===================================================== */
-async function openDetail(id, type, resume){
+function extractDownloadLinks(item, lang){
+    const links = {};
+
+    const sources = [
+        item.downloadLinks,
+        item.downloads,
+        item.dlLinks,
+        item.links
+    ];
+
+    sources.forEach(src => {
+        if(!src) return;
+        if(typeof src === "string"){
+            links["Default"] = src;
+            return;
+        }
+        if(typeof src !== "object") return;
+
+        Object.entries(src).forEach(([k, v]) => {
+            if(!v) return;
+            if(typeof v === "string"){
+                links[k] = v;
+            }else if(typeof v === "object"){
+                if(lang && typeof v[lang] === "string" && v[lang]) links[k] = v[lang];
+                else {
+                    const first = Object.values(v).find(x => typeof x === "string" && x);
+                    if(first) links[k] = first;
+                }
+            }
+        });
+    });
+
+    // Fallback: use videoUrl if no download links
+    if(Object.keys(links).length === 0){
+        const fallback = item.videoUrl || item.video || item.url || item.src || item.link || item.file;
+        if(typeof fallback === "string" && fallback){
+            links["Default"] = fallback;
+        }else if(fallback && typeof fallback === "object"){
+            Object.entries(fallback).forEach(([k, v]) => {
+                if(typeof v === "string" && v) links[k] = v;
+            });
+        }
+    }
+
+    return links;
+}
+
+function extractEpisodeDownloadLinks(ep, lang){
+    if(!ep) return {};
+    return extractDownloadLinks(ep, lang);
+}
+
+/* =====================================================
+   OPEN DOWNLOAD PAGE
+===================================================== */
+function openDownloadPage(id, type){
     if(!currentUser){
         openAuth();
         return;
@@ -4077,13 +3690,7 @@ async function openDetail(id, type, resume){
     const seasons = (type === "movie") ? [] : buildSeasons(data);
     const languages = getLanguages(data);
 
-    let hist = null;
-    try{
-        const snap = await db.ref("users/" + currentUser.uid + "/watchHistory/" + id).once("value");
-        hist = snap.val();
-    }catch(e){ console.error(e); }
-
-    detailState = {
+    dlState = {
         id: id,
         type: type,
         data: data,
@@ -4091,326 +3698,238 @@ async function openDetail(id, type, resume){
         languages: languages,
         lang: languages[0] || "Default",
         seasonIndex: 0,
-        episodeIndex: 0,
-        hist: hist || null,
-        firstLoad: true
+        episodeIndex: 0
     };
 
-    if(hist && seasons.length){
-        const si = Number(hist.seasonIndex);
-        const ei = Number(hist.episodeIndex);
-        if(!isNaN(si) && seasons[si]){
-            detailState.seasonIndex = si;
-            if(!isNaN(ei) && seasons[si].episodes[ei]){
-                detailState.episodeIndex = ei;
-            }
-        }
-    }
+    // Set poster & info
+    const posterEl = document.getElementById("dlPoster");
+    posterEl.src = data.poster || data.posterUrl || DEFAULT_POSTER;
+    posterEl.onerror = function(){ this.src = DEFAULT_POSTER; };
 
-    document.getElementById("dTitle").textContent = data.title || "Untitled";
+    document.getElementById("dlTitle").textContent = data.title || "Untitled";
+    document.getElementById("dlDesc").textContent = data.description || data.desc || data.plot || data.overview || "No description available.";
 
-    const descEl = document.getElementById("dDesc");
-    descEl.textContent = data.description || data.desc || data.plot || data.overview || "No description available.";
-    descEl.classList.remove("open");
+    // Meta chips
+    const metaHtml = [
+        `<span class="meta-chip">${type === 'movie' ? 'Movie' : (type === 'tv' ? 'TV Show' : 'K-Drama')}</span>`,
+        data.rating ? `<span class="meta-chip star">★ ${escapeHTML(String(data.rating))}</span>` : "",
+        (data.release || data.year) ? `<span class="meta-chip">${escapeHTML(String(data.release || data.year))}</span>` : "",
+        data.genre ? `<span class="meta-chip">${escapeHTML(String(data.genre))}</span>` : "",
+        data.country ? `<span class="meta-chip">${escapeHTML(String(data.country))}</span>` : ""
+    ].filter(Boolean).join("");
+    document.getElementById("dlMeta").innerHTML = metaHtml;
 
-    document.getElementById("dMeta").innerHTML = buildMetaHTML(data, type);
-
-    const up = document.getElementById("dUploader");
-    if(up) up.textContent = data.uploader || data.author || data.studio || "SHANFILX";
-
-    const resBox = document.getElementById("dResources");
+    // Episode section
+    const epSection = document.getElementById("dlEpSection");
 
     if(seasons.length){
-        resBox.classList.remove("hidden");
+        epSection.classList.remove("hidden");
 
-        const langSel = document.getElementById("dLang");
-        langSel.innerHTML = detailState.languages
+        const langSel = document.getElementById("dlLang");
+        langSel.innerHTML = dlState.languages
             .map(l => `<option value="${escapeHTML(l)}">${escapeHTML(l)}</option>`).join("");
-        langSel.value = detailState.lang;
+        langSel.value = dlState.lang;
 
-        const seasonSel = document.getElementById("dSeason");
+        const seasonSel = document.getElementById("dlSeason");
         seasonSel.innerHTML = seasons
             .map((s,i) => `<option value="${i}">${escapeHTML(s.label)}</option>`).join("");
-        seasonSel.value = String(detailState.seasonIndex);
+        seasonSel.value = "0";
 
-        renderEpisodes();
+        renderDlEpisodes();
     }else{
-        resBox.classList.add("hidden");
+        epSection.classList.add("hidden");
     }
 
-    renderForYou(id, type);
-    updateListButton();
+    // Render downloads
+    renderDownloadList();
 
-    document.getElementById("detailModal").classList.add("show");
-
-    await loadDetailVideo(true);
-}
-
-/* =====================================================
-   META CHIPS
-===================================================== */
-function buildMetaHTML(item, type){
-    const chips = [];
-    const typeLabel = type === "movie" ? "Movie" : (type === "tv" ? "TV Show" : "K-Drama");
-
-    chips.push(`<span class="meta-chip">${typeLabel}</span>`);
-
-    if(item.rating){
-        chips.push(`<span class="meta-chip star">★ ${escapeHTML(String(item.rating))}</span>`);
-    }
-
-    const year = item.release || item.year;
-    if(year) chips.push(`<span class="meta-chip">${escapeHTML(String(year))}</span>`);
-
-    if(item.country) chips.push(`<span class="meta-chip">${escapeHTML(String(item.country))}</span>`);
-    if(item.genre)   chips.push(`<span class="meta-chip">${escapeHTML(String(item.genre))}</span>`);
-
-    if(detailState && detailState.seasons && detailState.seasons.length){
-        const n = detailState.seasons.length;
-        chips.push(`<span class="meta-chip">${n} Season${n > 1 ? "s" : ""}</span>`);
-    }
-
-    if(item.duration) chips.push(`<span class="meta-chip">${escapeHTML(String(item.duration))}</span>`);
-    if(item.quality)  chips.push(`<span class="meta-chip">${escapeHTML(String(item.quality))}</span>`);
-
-    return chips.join("");
-}
-
-/* =====================================================
-   EPISODES RENDER
-===================================================== */
-function renderEpisodes(){
-    if(!detailState || !detailState.seasons.length) return;
-
-    const season = detailState.seasons[detailState.seasonIndex];
-    if(!season) return;
-
-    const grid = document.getElementById("dEpisodes");
-
-    let html = `<button class="ep-btn all-btn" onclick="selectEpisode(0)">ALL</button>`;
-
-    html += season.episodes.map((ep, i) => `
-        <button class="ep-btn ${i === detailState.episodeIndex ? "active" : ""}"
-                title="${escapeHTML(ep.label || "")}"
-                onclick="selectEpisode(${i})">${escapeHTML(epShortLabel(ep, i))}</button>
-    `).join("");
-
-    grid.innerHTML = html;
-}
-
-function selectEpisode(index){
-    if(!detailState || !detailState.seasons.length) return;
-
-    const season = detailState.seasons[detailState.seasonIndex];
-    if(index < 0 || index >= season.episodes.length) return;
-
-    detailState.episodeIndex = index;
-    renderEpisodes();
-    loadDetailVideo(false);
-}
-
-function changeSeason(value){
-    if(!detailState) return;
-
-    const idx = Number(value);
-    if(isNaN(idx) || !detailState.seasons[idx]) return;
-
-    detailState.seasonIndex = idx;
-    detailState.episodeIndex = 0;
-
-    renderEpisodes();
-    loadDetailVideo(false);
-}
-
-function changeLanguage(value){
-    if(!detailState) return;
-    detailState.lang = value;
-    loadDetailVideo(false);
-}
-
-/* =====================================================
-   LOAD VIDEO INTO PLAYER
-===================================================== */
-async function loadDetailVideo(useResume){
-    if(!detailState || !currentUser) return;
-
-    const player = document.getElementById("videoPlayer");
-    const data = detailState.data;
-
-    let url = "";
-    let label = data.title || "Untitled";
-
-    if(detailState.seasons.length){
-        const season = detailState.seasons[detailState.seasonIndex];
-        const ep = season && season.episodes[detailState.episodeIndex];
-        url = episodeUrl(ep, detailState.lang);
-        if(ep && ep.label) label = (data.title || "") + " • " + ep.label;
-    }else{
-        url = episodeUrl(data, detailState.lang);
-    }
-
-    document.getElementById("dTitle").textContent = label;
-
-    let resumeAt = 0;
-    if(useResume && detailState.hist &&
-       detailState.hist.progress > 5 && detailState.hist.duration > 0){
-        const p = Number(detailState.hist.percent) || 0;
-        if(p < 95) resumeAt = Number(detailState.hist.progress) || 0;
-    }
-
+    // Set current content (for My List etc.)
     currentContent = {
-        id: detailState.id,
-        type: detailState.type,
+        id: id,
+        type: type,
         title: data.title || "",
         poster: data.poster || data.posterUrl || "",
         rating: data.rating || "",
-        genre: data.genre || "",
-        videoUrl: url,
-        resumeTime: resumeAt,
-        percent: 0,
-        duration: 0
+        genre: data.genre || ""
     };
 
-    if(!url){
-        player.pause();
-        player.removeAttribute("src");
-        player.load();
-        lastSavedSecond = 0;
-        return;
+    showPage("downloadPage");
+}
+
+/* =====================================================
+   DOWNLOAD EPISODES RENDER
+===================================================== */
+function renderDlEpisodes(){
+    if(!dlState || !dlState.seasons.length) return;
+
+    const season = dlState.seasons[dlState.seasonIndex];
+    if(!season) return;
+
+    const grid = document.getElementById("dlEpGrid");
+
+    grid.innerHTML = season.episodes.map((ep, i) => `
+        <button class="dl-ep-btn ${i === dlState.episodeIndex ? "active" : ""}"
+                title="${escapeHTML(ep.label || "")}"
+                onclick="selectDlEpisode(${i})">${escapeHTML(epShortLabel(ep, i))}</button>
+    `).join("");
+}
+
+function selectDlEpisode(index){
+    if(!dlState || !dlState.seasons.length) return;
+
+    const season = dlState.seasons[dlState.seasonIndex];
+    if(index < 0 || index >= season.episodes.length) return;
+
+    dlState.episodeIndex = index;
+    renderDlEpisodes();
+    renderDownloadList();
+}
+
+function onDlSeasonChange(value){
+    if(!dlState) return;
+    const idx = Number(value);
+    if(isNaN(idx) || !dlState.seasons[idx]) return;
+
+    dlState.seasonIndex = idx;
+    dlState.episodeIndex = 0;
+
+    renderDlEpisodes();
+    renderDownloadList();
+}
+
+function onDlLangChange(value){
+    if(!dlState) return;
+    dlState.lang = value;
+    renderDownloadList();
+}
+
+/* =====================================================
+   RENDER DOWNLOAD LIST
+===================================================== */
+function renderDownloadList(){
+    if(!dlState) return;
+
+    const listEl = document.getElementById("dlList");
+    listEl.innerHTML = "";
+
+    const data = dlState.data;
+    let links = {};
+
+    if(dlState.seasons.length){
+        const season = dlState.seasons[dlState.seasonIndex];
+        const ep = season && season.episodes[dlState.episodeIndex];
+        links = extractEpisodeDownloadLinks(ep, dlState.lang);
+    }else{
+        links = extractDownloadLinks(data, dlState.lang);
     }
 
-    player.src = url;
-    player.load();
-    lastSavedSecond = 0;
-
-    player.addEventListener("loadedmetadata", function once(){
-        player.removeEventListener("loadedmetadata", once);
-        if(resumeAt > 0 && isFinite(player.duration) && resumeAt < player.duration - 3){
-            try{ player.currentTime = resumeAt; }catch(e){}
-        }
+    // Quality order for sorting
+    const qualityOrder = ["360p", "480p", "720p", "1080p", "1440p", "4K", "HEVC", "Default"];
+    const sortedQualities = Object.keys(links).sort((a, b) => {
+        const ia = qualityOrder.indexOf(a);
+        const ib = qualityOrder.indexOf(b);
+        return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
     });
 
-    if(getSetting("setAutoplay", true)){
-        player.play().catch(()=>{});
-    }
-
-    updateListButton();
-}
-
-/* =====================================================
-   CLOSE DETAIL
-===================================================== */
-function closeDetail(){
-    if(currentUser && currentContent){
-        saveWatchHistory();
-    }
-
-    const player = document.getElementById("videoPlayer");
-    try{
-        player.pause();
-        player.removeAttribute("src");
-        player.load();
-    }catch(e){}
-
-    document.getElementById("detailModal").classList.remove("show");
-
-    detailState = null;
-    lastSavedSecond = 0;
-}
-
-function closeVideo(){ closeDetail(); }
-
-/* =====================================================
-   DETAIL INFO TOGGLE
-===================================================== */
-function toggleDetailInfo(){
-    const el = document.getElementById("dDesc");
-    if(!el) return;
-    el.classList.toggle("open");
-}
-
-/* =====================================================
-   FOR YOU
-===================================================== */
-function renderForYou(id, type){
-    const el = document.getElementById("dForYou");
-    if(!el) return;
-
-    const all = allContent().filter(x => x.id !== id);
-    const same = all.filter(x => x.type === type);
-    const others = all.filter(x => x.type !== type);
-    const picks = [...same, ...others].slice(0, 12);
-
-    if(!picks.length){
-        el.innerHTML = `<div class="empty" style="padding:20px">No suggestions yet.</div>`;
+    if(sortedQualities.length === 0){
+        listEl.innerHTML = `<div class="empty" style="grid-column:1/-1;padding:30px">
+            <div style="font-size:40px;margin-bottom:12px">⬇</div>
+            <p>No download links available for this title.</p>
+            <p style="margin-top:6px;font-size:12px">Please check back later.</p>
+        </div>`;
         return;
     }
 
-    el.innerHTML = picks.map(cardHTML).join("");
-}
-
-/* =====================================================
-   MY LIST BUTTON STATE
-===================================================== */
-async function updateListButton(){
-    const btn = document.getElementById("dListBtn");
-    if(!btn || !detailState || !currentUser) return;
-
-    try{
-        const snap = await db.ref("users/" + currentUser.uid + "/myList/" + detailState.id).once("value");
-        btn.innerHTML = snap.exists() ? "✓ In My List" : "＋ Add to list";
-    }catch(e){
-        btn.innerHTML = "＋ Add to list";
+    // Title for filename
+    const baseTitle = data.title || "video";
+    let episodeLabel = "";
+    if(dlState.seasons.length){
+        const season = dlState.seasons[dlState.seasonIndex];
+        const ep = season && season.episodes[dlState.episodeIndex];
+        if(ep && ep.label) episodeLabel = "_" + ep.label.replace(/[^a-z0-9]/gi, "_");
     }
+
+    sortedQualities.forEach(quality => {
+        const url = links[quality];
+        if(!url) return;
+
+        const item = document.createElement("div");
+        item.className = "dl-item";
+
+        const displayQuality = quality === "Default" ? "Download" : quality;
+
+        item.innerHTML = `
+            <div class="dl-item-left">
+                <div class="dl-quality-icon">⬇</div>
+                <div>
+                    <div class="dl-quality-label">${escapeHTML(displayQuality)}</div>
+                    <div class="dl-quality-sub">${getQualitySize(quality)} • MP4</div>
+                </div>
+            </div>
+            <button class="dl-btn">
+                ⬇ Download
+            </button>
+        `;
+
+        item.querySelector(".dl-btn").addEventListener("click", function () {
+            startDownload(url, baseTitle + episodeLabel + "_" + displayQuality + ".mp4", this);
+        });
+
+        listEl.appendChild(item);
+    });
 }
 
 /* =====================================================
-   SHARE / DOWNLOAD
+   START DOWNLOAD
 ===================================================== */
-async function shareContent(){
-    if(!detailState) return;
-
-    const url = location.origin + location.pathname + "?id=" + encodeURIComponent(detailState.id);
-    const title = detailState.data.title || "SHANFILX";
-
-    try{
-        if(navigator.share){
-            await navigator.share({ title: title, text: "Watch " + title + " on SHANFILX", url: url });
-        }else if(navigator.clipboard && navigator.clipboard.writeText){
-            await navigator.clipboard.writeText(url);
-            alert("Link copied to clipboard.");
-        }else{
-            prompt("Copy this link:", url);
-        }
-    }catch(e){ /* user cancelled */ }
-}
-
-function downloadContent(){
-    if(!currentContent || !currentContent.videoUrl){
-        alert("Download is not available for this title.");
+function startDownload(url, filename, btnElement){
+    if(!url){
+        alert("Download link not available.");
         return;
     }
+
+    const originalText = btnElement.innerHTML;
+    btnElement.classList.add("downloading");
+    btnElement.innerHTML = "⏳ Downloading...";
 
     const a = document.createElement("a");
-    a.href = currentContent.videoUrl;
-    a.download = (currentContent.title || "video") + ".mp4";
+    a.href = url;
+    a.download = filename || "video.mp4";
     a.target = "_blank";
     a.rel = "noopener";
     document.body.appendChild(a);
     a.click();
     a.remove();
-}
 
-function viewDownloads(){
-    closeDetail();
-    showPage("downloads");
+    setTimeout(() => {
+        btnElement.classList.remove("downloading");
+        btnElement.innerHTML = originalText;
+    }, 3000);
 }
 
 /* =====================================================
-   RESUME FROM CARD
+   QUALITY SIZE HELPER
 ===================================================== */
-async function resumeFromCard(id, type){
-    await openDetail(id, type, true);
+function getQualitySize(quality){
+    const sizes = {
+        "360p": "~300 MB",
+        "480p": "~500 MB",
+        "720p": "~1.2 GB",
+        "1080p": "~2.5 GB",
+        "1440p": "~5 GB",
+        "4K": "~8 GB",
+        "HEVC": "~800 MB",
+        "Default": "MP4 File"
+    };
+    return sizes[quality] || "MP4 File";
+}
+
+/* =====================================================
+   CLOSE DOWNLOAD PAGE
+===================================================== */
+function closeDownloadPage(){
+    dlState = null;
+    showPage("home");
 }
 
 /* =====================================================
@@ -4441,10 +3960,6 @@ async function toggleCurrentList(){
             genre: currentContent.genre || "",
             backdrop: currentContent.backdrop || currentContent.backdropUrl || "",
             description: currentContent.description || "",
-            videoUrl:
-                currentContent.videoUrl ||
-                currentContent.video ||
-                currentContent.url || "",
             addedAt: firebase.database.ServerValue.TIMESTAMP
         });
 
@@ -4452,7 +3967,6 @@ async function toggleCurrentList(){
     }
 
     loadMyList();
-    updateListButton();
 }
 
 /* =====================================================
@@ -4546,26 +4060,10 @@ function renderMyListGrid(){
 
 function emptyListHTML(){
     const labels = {
-        all: {
-            icon: "♥",
-            text: "Your list is empty",
-            sub: "Add movies, TV shows and K-dramas to see them here."
-        },
-        movie: {
-            icon: "🎬",
-            text: "No saved movies",
-            sub: "Tap + My List on any movie to save it."
-        },
-        tv: {
-            icon: "📺",
-            text: "No saved TV shows",
-            sub: "Tap + My List on any TV show to save it."
-        },
-        kdrama: {
-            icon: "🌸",
-            text: "No saved K-dramas",
-            sub: "Tap + My List on any K-drama to save it."
-        }
+        all: { icon: "♥", text: "Your list is empty", sub: "Add movies, TV shows and K-dramas to see them here." },
+        movie: { icon: "🎬", text: "No saved movies", sub: "Tap + My List on any movie to save it." },
+        tv: { icon: "📺", text: "No saved TV shows", sub: "Tap + My List on any TV show to save it." },
+        kdrama: { icon: "🌸", text: "No saved K-dramas", sub: "Tap + My List on any K-drama to save it." }
     };
 
     const l = labels[myListFilter] || labels.all;
@@ -4577,52 +4075,6 @@ function emptyListHTML(){
             <div class="list-empty-sub">${l.sub}</div>
         </div>
     `;
-}
-
-/* =====================================================
-   WATCH HISTORY SAVE
-===================================================== */
-async function saveWatchHistory(){
-    if(!currentUser || !currentContent) return;
-
-    const player = document.getElementById("videoPlayer");
-
-    let currentTime = 0, duration = 0, percent = 0;
-
-    if(player && player.src && player.duration &&
-       isFinite(player.duration) && player.duration > 0){
-        currentTime = player.currentTime || 0;
-        duration    = player.duration;
-        percent     = Math.min(100, Math.round((currentTime / duration) * 100));
-    }
-
-    if(duration <= 0) return;
-
-    const sIdx = detailState ? detailState.seasonIndex : 0;
-    const eIdx = detailState ? detailState.episodeIndex : 0;
-
-    try{
-        await db.ref("users/" + currentUser.uid + "/watchHistory/" + currentContent.id).set({
-            id: currentContent.id,
-            type: currentContent.type,
-            title: currentContent.title || "",
-            poster: currentContent.poster || currentContent.posterUrl || "",
-            rating: currentContent.rating || "",
-            genre: currentContent.genre || "",
-            videoUrl:
-                currentContent.videoUrl ||
-                currentContent.video ||
-                currentContent.url || "",
-            progress: currentTime,
-            duration: duration,
-            percent: percent,
-            seasonIndex: sIdx,
-            episodeIndex: eIdx,
-            watchedAt: firebase.database.ServerValue.TIMESTAMP
-        });
-    }catch(error){
-        console.error(error);
-    }
 }
 
 /* =====================================================
@@ -4808,7 +4260,6 @@ async function loadContinueWatching(){
 ===================================================== */
 const SETTING_KEYS = [
     "setAutoplay",
-    "setAutoplayNext",
     "setDataSaver",
     "setHD",
     "setPushNotif",
@@ -4835,25 +4286,6 @@ function saveSelectSetting(key, value){
     try{
         localStorage.setItem("shanfilx_" + key, value);
     }catch(e){}
-}
-
-function getSetting(key, defaultValue){
-    try{
-        const v = localStorage.getItem("shanfilx_" + key);
-        if(v === null) return defaultValue;
-        return v === "1";
-    }catch(e){
-        return defaultValue;
-    }
-}
-
-function getSelectSetting(key, defaultValue){
-    try{
-        const v = localStorage.getItem("shanfilx_" + key);
-        return v === null ? defaultValue : v;
-    }catch(e){
-        return defaultValue;
-    }
 }
 
 function loadSettingsUI(){
@@ -5001,49 +4433,7 @@ function escapeId(value){
 }
 
 /* =====================================================
-   VIDEO PROGRESS AUTO-SAVE LISTENERS
-===================================================== */
-const _player = document.getElementById("videoPlayer");
-
-_player.addEventListener("timeupdate", function(){
-    if(!currentUser || !currentContent) return;
-
-    const t = Math.floor(this.currentTime || 0);
-
-    if(t > 0 && t - lastSavedSecond >= 5){
-        lastSavedSecond = t;
-        saveWatchHistory();
-    }
-});
-
-_player.addEventListener("pause", function(){
-    if(!currentUser || !currentContent) return;
-    if(!this.src) return;
-    if(this.currentTime < 1) return;
-    saveWatchHistory();
-});
-
-_player.addEventListener("ended", async function(){
-    if(!currentUser || !currentContent) return;
-
-    try{
-        await db.ref("users/" + currentUser.uid + "/watchHistory/" + currentContent.id).update({
-            progress: 0,
-            percent: 100,
-            watchedAt: firebase.database.ServerValue.TIMESTAMP
-        });
-    }catch(e){}
-
-    if(getSetting("setAutoplayNext", true) && detailState && detailState.seasons.length){
-        const season = detailState.seasons[detailState.seasonIndex];
-        if(season && detailState.episodeIndex < season.episodes.length - 1){
-            selectEpisode(detailState.episodeIndex + 1);
-        }
-    }
-});
-
-/* =====================================================
-   PWA SERVICE WORKER REGISTRATION
+   PWA SERVICE WORKER
 ===================================================== */
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -5056,35 +4446,29 @@ if ('serviceWorker' in navigator) {
                 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js',
                 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap'
             ];
-            
+
             self.addEventListener('install', (e) => {
                 e.waitUntil(
-                    caches.open(CACHE_NAME).then((cache) => {
-                        return cache.addAll(ASSETS);
-                    })
+                    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
                 );
             });
 
             self.addEventListener('fetch', (e) => {
                 if (e.request.url.includes('firebaseio.com')) {
-                    e.respondWith(
-                        fetch(e.request).catch(() => caches.match(e.request))
-                    );
+                    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
                 } else {
                     e.respondWith(
-                        caches.match(e.request).then((response) => {
-                            return response || fetch(e.request);
-                        })
+                        caches.match(e.request).then((response) => response || fetch(e.request))
                     );
                 }
             });
         `;
-        
+
         const blob = new Blob([swCode], { type: 'application/javascript' });
         const swUrl = URL.createObjectURL(blob);
-        
+
         navigator.serviceWorker.register(swUrl)
-            .then(() => console.log('[SHANFILX] Service Worker Registered - 5G Speed Enabled'))
+            .then(() => console.log('[SHANFILX] Service Worker Registered'))
             .catch(err => console.log('[SHANFILX] Service Worker Failed', err));
     });
 }
@@ -5095,580 +4479,6 @@ if ('serviceWorker' in navigator) {
 renderAll();
 loadSettingsUI();
 
-</script>
-
-<!-- =====================================================
-     CUSTOM NETFLIX-STYLE PLAYER ENGINE
-===================================================== -->
-<script>
-(function () {
-
-    const box       = document.getElementById('videoBox');
-    if (!box) return;
-
-    const video     = document.getElementById('videoPlayer');
-    const spin      = document.getElementById('vpSpin');
-    const ripL      = document.getElementById('vpRipL');
-    const ripR      = document.getElementById('vpRipR');
-    const titleEl   = document.getElementById('vpTitle');
-    const subEl     = document.getElementById('vpSub');
-    const pipBtn    = document.getElementById('vpPip');
-    const backBtn   = document.getElementById('vpBackBtn');
-    const skipBtn   = document.getElementById('vpSkipIntro');
-    const nextBox   = document.getElementById('vpNext');
-    const nextTitle = document.getElementById('vpNextTitle');
-    const nextPlay  = document.getElementById('vpNextPlay');
-    const progress  = document.getElementById('vpProgress');
-    const bufferEl  = document.getElementById('vpBuffer');
-    const playedEl  = document.getElementById('vpPlayed');
-    const thumbEl   = document.getElementById('vpThumb');
-    const playBtn   = document.getElementById('vpPlay');
-    const back10    = document.getElementById('vpBack10');
-    const fwd10     = document.getElementById('vpFwd10');
-    const muteBtn   = document.getElementById('vpMute');
-    const volEl     = document.getElementById('vpVol');
-    const timeEl    = document.getElementById('vpTime');
-    const speedBtn  = document.getElementById('vpSpeed');
-    const fullBtn   = document.getElementById('vpFull');
-    const menu      = document.getElementById('vpMenu');
-
-    let hideTimer   = null;
-    let dragging    = false;
-
-    /* -------------------------------------------------
-       UTIL
-    ------------------------------------------------- */
-    function fmt(sec) {
-        sec = Math.max(0, Math.floor(sec || 0));
-        const h = Math.floor(sec / 3600);
-        const m = Math.floor((sec % 3600) / 60);
-        const s = sec % 60;
-        if (h > 0) return h + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
-        return m + ':' + String(s).padStart(2, '0');
-    }
-
-    function showControls() {
-        clearTimeout(hideTimer);
-        box.classList.remove('hide-ui');
-        if (!video.paused && !menu.classList.contains('show')) {
-            hideTimer = setTimeout(() => box.classList.add('hide-ui'), 3000);
-        }
-    }
-
-    function resetUI() {
-        spin.classList.remove('show');
-        skipBtn.classList.remove('show');
-        nextBox.classList.remove('show');
-        playedEl.style.width = '0%';
-        thumbEl.style.left   = '0%';
-        bufferEl.style.width = '0%';
-        timeEl.textContent   = '0:00 / 0:00';
-        box.classList.remove('hide-ui');
-    }
-
-    /* -------------------------------------------------
-       META (title / subtitle / poster)
-    ------------------------------------------------- */
-    function syncMeta() {
-        if (typeof detailState === 'undefined' || !detailState) return;
-
-        const d = detailState.data || {};
-        titleEl.textContent = d.title || 'SHANFILX';
-
-        if (detailState.seasons && detailState.seasons.length) {
-            const season = detailState.seasons[detailState.seasonIndex];
-            const ep     = season && season.episodes[detailState.episodeIndex];
-            let sub = season ? season.label : '';
-            if (ep && ep.label) sub += (sub ? ' • ' : '') + ep.label;
-            subEl.textContent = sub;
-        } else {
-            subEl.textContent = d.release || d.year || '';
-        }
-
-        const poster = d.backdrop || d.backdropUrl || d.poster || d.posterUrl || '';
-        if (poster) video.poster = poster;
-    }
-
-    /* -------------------------------------------------
-       ICONS
-    ------------------------------------------------- */
-    function syncPlayIcon() {
-        if (video.paused) {
-            playBtn.innerHTML = '▶';
-            clearTimeout(hideTimer);
-            box.classList.remove('hide-ui');
-        } else {
-            playBtn.innerHTML = '❚❚';
-            showControls();
-        }
-    }
-
-    function syncVolume() {
-        volEl.value = video.muted ? 0 : video.volume;
-        muteBtn.textContent =
-            (video.muted || video.volume === 0) ? '🔇' :
-            (video.volume < 0.5 ? '🔉' : '🔊');
-    }
-
-    /* -------------------------------------------------
-       PROGRESS
-    ------------------------------------------------- */
-    function updateProgressUI() {
-        const d = video.duration;
-        if (!isFinite(d) || d <= 0) {
-            playedEl.style.width = '0%';
-            thumbEl.style.left   = '0%';
-            timeEl.textContent   = '0:00 / 0:00';
-            return;
-        }
-        const p = (video.currentTime / d) * 100;
-        playedEl.style.width = p + '%';
-        thumbEl.style.left   = p + '%';
-        timeEl.textContent   = fmt(video.currentTime) + ' / ' + fmt(d);
-    }
-
-    function updateBufferUI() {
-        const d = video.duration;
-        if (!isFinite(d) || d <= 0 || !video.buffered.length) return;
-        let end = 0;
-        for (let i = 0; i < video.buffered.length; i++) {
-            if (video.buffered.start(i) <= video.currentTime &&
-                video.buffered.end(i)   >= video.currentTime) {
-                end = video.buffered.end(i);
-                break;
-            }
-            end = Math.max(end, video.buffered.end(i));
-        }
-        bufferEl.style.width = Math.min(100, (end / d) * 100) + '%';
-    }
-
-    /* -------------------------------------------------
-       PLAY / SEEK
-    ------------------------------------------------- */
-    function togglePlay() {
-        if (!video.src) return;
-        if (video.paused) video.play().catch(() => {});
-        else video.pause();
-        showControls();
-    }
-
-    function seekBy(sec) {
-        if (!isFinite(video.duration)) return;
-        video.currentTime = Math.min(
-            video.duration - 0.5,
-            Math.max(0, video.currentTime + sec)
-        );
-        showControls();
-    }
-
-    function flashRipple(el) {
-        el.classList.add('show');
-        clearTimeout(el._t);
-        el._t = setTimeout(() => el.classList.remove('show'), 620);
-    }
-
-    /* -------------------------------------------------
-       SKIP INTRO / NEXT EPISODE
-    ------------------------------------------------- */
-    function checkSkipIntro() {
-        if (!isFinite(video.duration) || video.duration < 180) {
-            skipBtn.classList.remove('show');
-            return;
-        }
-        const t = video.currentTime;
-        if (t > 6 && t < 70 && !nextBox.classList.contains('show')) {
-            skipBtn.classList.add('show');
-        } else {
-            skipBtn.classList.remove('show');
-        }
-    }
-
-    function checkNextEpisode() {
-        if (typeof detailState === 'undefined' || !detailState || !detailState.seasons.length) {
-            nextBox.classList.remove('show');
-            return;
-        }
-        const d = video.duration;
-        if (!isFinite(d) || d < 60) {
-            nextBox.classList.remove('show');
-            return;
-        }
-        const season = detailState.seasons[detailState.seasonIndex];
-        const hasNext = season && detailState.episodeIndex < season.episodes.length - 1;
-
-        if (!hasNext) { nextBox.classList.remove('show'); return; }
-
-        if (d - video.currentTime <= 15 && d - video.currentTime > 0) {
-            const ep = season.episodes[detailState.episodeIndex + 1];
-            nextTitle.textContent = ep ? (ep.label || ('Episode ' + (detailState.episodeIndex + 2)))
-                                       : 'Next Episode';
-            nextBox.classList.add('show');
-            skipBtn.classList.remove('show');
-        } else {
-            nextBox.classList.remove('show');
-        }
-    }
-
-    /* -------------------------------------------------
-       VIDEO EVENTS
-    ------------------------------------------------- */
-    video.addEventListener('loadstart', () => {
-        spin.classList.add('show');
-        resetUI();
-        spin.classList.add('show');
-        syncMeta();
-    });
-
-    video.addEventListener('loadedmetadata', () => { updateProgressUI(); syncPlayIcon(); });
-    video.addEventListener('durationchange', () => { updateProgressUI(); });
-    video.addEventListener('progress', updateBufferUI);
-
-    video.addEventListener('timeupdate', () => {
-        updateProgressUI();
-        if (!dragging) {
-            updateBufferUI();
-            checkSkipIntro();
-            checkNextEpisode();
-        }
-    });
-
-    video.addEventListener('play',  syncPlayIcon);
-    video.addEventListener('pause', syncPlayIcon);
-
-    video.addEventListener('playing', () => {
-        spin.classList.remove('show');
-        syncPlayIcon();
-        showControls();
-    });
-
-    video.addEventListener('canplay', () => spin.classList.remove('show'));
-    video.addEventListener('waiting', () => spin.classList.add('show'));
-    video.addEventListener('stalled', () => spin.classList.add('show'));
-
-    video.addEventListener('seeking', () => { if (!dragging) spin.classList.add('show'); });
-    video.addEventListener('seeked',  () => { spin.classList.remove('show'); updateProgressUI(); });
-
-    video.addEventListener('volumechange', syncVolume);
-    video.addEventListener('error', () => spin.classList.remove('show'));
-    video.addEventListener('emptied', resetUI);
-
-    /* -------------------------------------------------
-       TAP / CLICK ON VIDEO
-       Center touch -> Toggle Play/Pause
-       Left/Right Double Tap -> Seek
-    ------------------------------------------------- */
-    let lastTap = 0;
-    box.addEventListener('click', function (e) {
-        // Ignore if clicking on buttons or UI elements
-        if (e.target.closest('button')) return;
-        if (e.target.closest('.vp-top') || e.target.closest('.vp-bottom') || 
-            e.target.closest('.vp-menu') || e.target.closest('.vp-next')) return;
-        
-        if (!video.src) return;
-
-        const rect  = video.getBoundingClientRect();
-        const ratio = (e.clientX - rect.left) / rect.width;
-        const now = Date.now();
-
-        // Double click / double tap detection
-        if (now - lastTap < 300) {
-            // Double click/tap -> Seek
-            if (ratio < 0.3) { 
-                seekBy(-10); 
-                flashRipple(ripL); 
-            } else if (ratio > 0.7) { 
-                seekBy(10); 
-                flashRipple(ripR); 
-            }
-            lastTap = 0;
-        } else {
-            // Single click/tap
-            lastTap = now;
-            setTimeout(() => {
-                if (lastTap === now) { // Still a single click
-                    if (ratio > 0.3 && ratio < 0.7) {
-                        // Center touch -> Toggle Play/Pause
-                        togglePlay();
-                    } else {
-                        // Left/Right single tap -> Show controls
-                        showControls();
-                    }
-                    lastTap = 0;
-                }
-            }, 300);
-        }
-    });
-
-    /* -------------------------------------------------
-       BOTTOM BUTTONS
-    ------------------------------------------------- */
-    playBtn.addEventListener('click', function (e) { e.stopPropagation(); togglePlay(); });
-
-    back10.addEventListener('click', function (e) {
-        e.stopPropagation(); seekBy(-10); flashRipple(ripL);
-    });
-
-    fwd10.addEventListener('click', function (e) {
-        e.stopPropagation(); seekBy(10); flashRipple(ripR);
-    });
-
-    muteBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        video.muted = !video.muted;
-        showControls();
-    });
-
-    volEl.addEventListener('input', function () {
-        video.volume = parseFloat(volEl.value);
-        video.muted  = video.volume === 0;
-    });
-
-    backBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        if (typeof closeDetail === 'function') closeDetail();
-    });
-
-    skipBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        if (!isFinite(video.duration)) return;
-        video.currentTime = Math.min(video.duration - 1, 85);
-        skipBtn.classList.remove('show');
-    });
-
-    nextPlay.addEventListener('click', function (e) {
-        e.stopPropagation();
-        if (typeof detailState === 'undefined' || !detailState) return;
-        nextBox.classList.remove('show');
-        if (typeof selectEpisode === 'function') {
-            selectEpisode(detailState.episodeIndex + 1);
-        }
-    });
-
-    /* -------------------------------------------------
-       PROGRESS DRAG (pointer events = mouse + touch)
-    ------------------------------------------------- */
-    function ratioFromEvent(e) {
-        const rect = progress.getBoundingClientRect();
-        return Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    }
-
-    function seekToRatio(r) {
-        const d = video.duration;
-        if (!isFinite(d) || d <= 0) return;
-        video.currentTime   = r * d;
-        playedEl.style.width = (r * 100) + '%';
-        thumbEl.style.left   = (r * 100) + '%';
-        timeEl.textContent   = fmt(r * d) + ' / ' + fmt(d);
-    }
-
-    progress.addEventListener('pointerdown', function (e) {
-        if (!isFinite(video.duration) || video.duration <= 0) return;
-        dragging = true;
-        progress.classList.add('dragging');
-        try { progress.setPointerCapture(e.pointerId); } catch (err) {}
-        seekToRatio(ratioFromEvent(e));
-        e.preventDefault();
-    });
-
-    progress.addEventListener('pointermove', function (e) {
-        if (!dragging) return;
-        seekToRatio(ratioFromEvent(e));
-    });
-
-    function endDrag(e) {
-        if (!dragging) return;
-        dragging = false;
-        progress.classList.remove('dragging');
-        try { progress.releasePointerCapture(e.pointerId); } catch (err) {}
-        showControls();
-    }
-
-    progress.addEventListener('pointerup', endDrag);
-    progress.addEventListener('pointercancel', endDrag);
-
-    /* -------------------------------------------------
-       SPEED MENU
-    ------------------------------------------------- */
-    speedBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        menu.classList.toggle('show');
-        showControls();
-    });
-
-    menu.querySelectorAll('.vp-menu-item').forEach(function (item) {
-        item.addEventListener('click', function (e) {
-            e.stopPropagation();
-            const sp = parseFloat(item.dataset.speed);
-            video.playbackRate = sp;
-            speedBtn.textContent = (sp === 1 ? '1×' : sp + '×');
-            menu.querySelectorAll('.vp-menu-item').forEach(x => x.classList.remove('active'));
-            item.classList.add('active');
-            menu.classList.remove('show');
-            showControls();
-        });
-    });
-
-    document.addEventListener('click', function (e) {
-        if (!menu.contains(e.target) && e.target !== speedBtn) {
-            if (menu.classList.contains('show')) {
-                menu.classList.remove('show');
-                showControls();
-            }
-        }
-    });
-
-    /* -------------------------------------------------
-       FULLSCREEN (with YouTube-like rotation)
-    ------------------------------------------------- */
-    function toggleFullscreen() {
-        const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
-
-        if (!fsEl) {
-            const req = box.requestFullscreen || box.webkitRequestFullscreen || box.msRequestFullscreen;
-            if (req) {
-                const p = req.call(box);
-                if (p && p.catch) p.catch(() => {});
-            }
-            // Rotate to landscape (360° rotation like YouTube)
-            try {
-                if (screen.orientation && screen.orientation.lock) {
-                    screen.orientation.lock('landscape').catch(() => {});
-                }
-            } catch (err) {}
-        } else {
-            const exit = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
-            if (exit) {
-                const p = exit.call(document);
-                if (p && p.catch) p.catch(() => {});
-            }
-            // Unlock orientation
-            try {
-                if (screen.orientation && screen.orientation.unlock) {
-                    screen.orientation.unlock();
-                }
-            } catch (err) {}
-        }
-    }
-
-    fullBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        toggleFullscreen();
-    });
-
-    document.addEventListener('fullscreenchange', function () {
-        fullBtn.textContent = document.fullscreenElement ? '⤡' : '⛶';
-        showControls();
-    });
-
-    /* -------------------------------------------------
-       PICTURE IN PICTURE
-    ------------------------------------------------- */
-    if (!document.pictureInPictureEnabled) {
-        pipBtn.style.display = 'none';
-    } else {
-        pipBtn.addEventListener('click', async function (e) {
-            e.stopPropagation();
-            try {
-                if (document.pictureInPictureElement) {
-                    await document.exitPictureInPicture();
-                } else {
-                    await video.requestPictureInPicture();
-                }
-            } catch (err) {}
-            showControls();
-        });
-    }
-
-    /* -------------------------------------------------
-       KEYBOARD SHORTCUTS
-    ------------------------------------------------- */
-    document.addEventListener('keydown', function (e) {
-        const modal = document.getElementById('detailModal');
-        if (!modal || !modal.classList.contains('show')) return;
-
-        const tag = (e.target.tagName || '').toUpperCase();
-        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-
-        switch (e.key) {
-            case ' ':
-            case 'k':
-            case 'K':
-                e.preventDefault(); togglePlay(); break;
-
-            case 'ArrowLeft':
-                e.preventDefault(); seekBy(-10); flashRipple(ripL); break;
-
-            case 'ArrowRight':
-                e.preventDefault(); seekBy(10); flashRipple(ripR); break;
-
-            case 'ArrowUp':
-                e.preventDefault();
-                video.volume = Math.min(1, video.volume + 0.1);
-                video.muted = false;
-                break;
-
-            case 'ArrowDown':
-                e.preventDefault();
-                video.volume = Math.max(0, video.volume - 0.1);
-                break;
-
-            case 'm':
-            case 'M':
-                video.muted = !video.muted; break;
-
-            case 'f':
-            case 'F':
-                toggleFullscreen(); break;
-
-            case 'Escape':
-                if (!document.fullscreenElement) {
-                    if (typeof closeDetail === 'function') closeDetail();
-                }
-                break;
-
-            default:
-                return;
-        }
-        showControls();
-    });
-
-    /* -------------------------------------------------
-       MOUSE / TOUCH ACTIVITY
-    ------------------------------------------------- */
-    box.addEventListener('mousemove', showControls);
-    box.addEventListener('touchstart', showControls, { passive: true });
-    box.addEventListener('mousemove', () => {
-        if (!video.paused) showControls();
-    });
-
-    /* -------------------------------------------------
-       HOOK INTO loadDetailVideo  (update title + poster)
-    ------------------------------------------------- */
-    const _origLoadDetailVideo = window.loadDetailVideo;
-
-    window.loadDetailVideo = async function (useResume) {
-        syncMeta();
-        if (typeof _origLoadDetailVideo === 'function') {
-            await _origLoadDetailVideo(useResume);
-        }
-        syncMeta();
-        syncVolume();
-        syncPlayIcon();
-        showControls();
-    };
-
-    /* -------------------------------------------------
-       INIT
-    ------------------------------------------------- */
-    video.volume = 1;
-    video.playbackRate = 1;
-    syncVolume();
-    syncPlayIcon();
-    updateProgressUI();
-
-    console.log('[SHANFILX] Center touch play/pause enabled ✓');
-
-})();
 </script>
 
 </body>
