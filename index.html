@@ -9,19 +9,24 @@
 
 <style>
 :root{
-  --bg:#04060d;
-  --text:#ffffff;
-  --muted:#a4acbf;
-  --accent:#8b5cf6;
-  --accent2:#a78bfa;
-  --accent3:#c4b5fd;
-  --accent-blue:#3b82f6;
+  --bg:#070B1A;
+  --text:#F8FAFC;
+  --muted:#A7B0C5;
+  --accent:#8B5CF6;
+  --accent2:#6366F1;
+  --accent3:#A78BFA;
+  --accent-blue:#6366F1;
+  --rating:#FACC15;
+  --glass:rgba(255,255,255,0.06);
+  --glass-soft:rgba(255,255,255,0.045);
+  --glass-strong:rgba(255,255,255,0.08);
+  --border:rgba(255,255,255,0.12);
+  --border-soft:rgba(255,255,255,0.08);
   --danger:#ef4444;
   --success:#22c55e;
   --warning:#f59e0b;
 }
 
-/* ===== ULTRA FAST TOUCH + RENDER ===== */
 *{
   box-sizing:border-box;
   -webkit-tap-highlight-color: transparent;
@@ -46,24 +51,6 @@ html,body{
 
 body{ min-height:100vh; position:relative; }
 
-#bgLayer{
-  position:fixed; inset:-60px; z-index:-2;
-  background-size:cover; background-position:center;
-  filter: blur(45px) saturate(1.4) brightness(.5) !important;
-  transform:scale(1.15);
-  transition:background-image .8s ease;
-  opacity:.85;
-}
-
-#bgOverlay{
-  position:fixed; inset:0; z-index:-1;
-  background:
-    radial-gradient(circle at 20% 10%, rgba(139,92,246,.22) 0%, transparent 55%),
-    radial-gradient(circle at 80% 90%, rgba(59,130,246,.18) 0%, transparent 55%),
-    linear-gradient(180deg, rgba(4,6,13,.55) 0%, rgba(4,6,13,.85) 60%, #04060d 100%);
-  pointer-events:none;
-}
-
 button,input,select{ font:inherit; }
 
 button{
@@ -83,16 +70,15 @@ button:active{ transform: scale(.96) !important; }
 
 .hidden{ display:none!important; }
 
-/* LOADER */
 #pageLoader{
-  position:fixed; inset:0; z-index:9999; background:#04060d;
+  position:fixed; inset:0; z-index:9999; background:#070B1A;
   display:flex; align-items:center; justify-content:center;
   animation:fadeOut .4s ease forwards; animation-delay:.1s;
 }
 @keyframes fadeOut{ to{opacity:0; visibility:hidden;} }
 .loaderBox{ text-align:center; }
 .loaderLogo{
-  font-size:32px; font-weight:900; letter-spacing:6px; color:var(--accent2);
+  font-size:32px; font-weight:900; letter-spacing:6px; color:var(--accent3);
   margin-bottom:24px; animation:glow 1.8s ease-in-out infinite;
 }
 @keyframes glow{
@@ -100,12 +86,11 @@ button:active{ transform: scale(.96) !important; }
   50%{ text-shadow:0 0 30px #a78bfa, 0 0 60px #8b5cf6aa; transform:scale(1.03); }
 }
 .spinner{
-  width:40px; height:40px; border:3px solid #ffffff10; border-top-color:var(--accent2);
+  width:40px; height:40px; border:3px solid #ffffff10; border-top-color:var(--accent3);
   border-radius:50%; animation:spin .8s linear infinite; margin:auto;
 }
 @keyframes spin{ to{transform:rotate(360deg)} }
 
-/* AUTH */
 #authScreen{
   min-height:100vh; display:flex; align-items:center; justify-content:center;
   padding:20px; position:relative; z-index:1; animation:authFade .3s ease;
@@ -113,22 +98,22 @@ button:active{ transform: scale(.96) !important; }
 @keyframes authFade{ from{opacity:0;} to{opacity:1;} }
 .authCard{
   width:100%; max-width:420px; padding:30px 26px; border-radius:26px;
-  background:rgba(255,255,255,.05);
+  background:var(--glass);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  border:1px solid rgba(255,255,255,.12);
+  border:1px solid var(--border);
   box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 60px rgba(139,92,246,.15),
     inset 0 1px 0 rgba(255,255,255,.15), inset 0 -1px 0 rgba(0,0,0,.25);
   position:relative; overflow:hidden;
 }
 .authCard::before{
   content:""; position:absolute; top:0; left:-50%; width:200%; height:1px;
-  background:linear-gradient(90deg, transparent, rgba(167,139,250,.6), rgba(59,130,246,.6), transparent);
+  background:linear-gradient(90deg, transparent, rgba(167,139,250,.6), rgba(99,102,241,.6), transparent);
   animation:shimmer 3s linear infinite;
 }
 @keyframes shimmer{ 0%{ transform:translateX(-50%); } 100%{ transform:translateX(50%); } }
 .authLogo{
-  font-size:28px; font-weight:900; letter-spacing:4px; color:var(--accent2);
+  font-size:28px; font-weight:900; letter-spacing:4px; color:var(--accent3);
   margin-bottom:22px; text-shadow:0 0 25px rgba(167,139,250,.55);
 }
 .authCard h1{ margin:0 0 8px; font-size:24px; letter-spacing:-.3px; }
@@ -137,11 +122,11 @@ button:active{ transform: scale(.96) !important; }
 .field label{ display:block; color:var(--muted); font-size:12px; font-weight:600; margin-bottom:6px; letter-spacing:.3px; }
 .input{
   width:100%; padding:14px 15px; background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.1); color:white; border-radius:12px;
+  border:1px solid var(--border); color:var(--text); border-radius:12px;
   outline:none; font-size:15px;
   transition:border-color .15s, background .15s, box-shadow .15s;
 }
-.input::placeholder{ color:rgba(164,172,191,.6); }
+.input::placeholder{ color:rgba(167,176,197,.6); }
 .input:focus{
   border-color:rgba(167,139,250,.6); background:rgba(255,255,255,.07);
   box-shadow:0 0 0 3px rgba(139,92,246,.18), 0 0 20px rgba(139,92,246,.15);
@@ -154,14 +139,14 @@ button:active{ transform: scale(.96) !important; }
   color:var(--muted); display:flex; align-items:center; justify-content:center;
   transition:color .15s, background .15s, transform .1s; padding:0; z-index:2;
 }
-.passwordToggle:hover{ color:white; background:rgba(255,255,255,.08); }
+.passwordToggle:hover{ color:var(--text); background:var(--glass-strong); }
 .passwordToggle svg{ width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-.passwordToggle.visible{ color:var(--accent2); }
+.passwordToggle.visible{ color:var(--accent3); }
 
 .primaryBtn{
-  width:100%; padding:15px; color:white; border-radius:12px;
+  width:100%; padding:15px; color:#fff; border-radius:12px;
   font-weight:800; font-size:15px; letter-spacing:.3px; margin-top:8px;
-  background:linear-gradient(135deg, rgba(139,92,246,.85), rgba(59,130,246,.85));
+  background:linear-gradient(135deg, rgba(139,92,246,.85), rgba(99,102,241,.85));
   border:1px solid rgba(255,255,255,.18);
   box-shadow:0 8px 25px rgba(139,92,246,.4),
     inset 0 1px 0 rgba(255,255,255,.25), inset 0 -1px 0 rgba(0,0,0,.2);
@@ -173,36 +158,34 @@ button:active{ transform: scale(.96) !important; }
   pointer-events:none;
 }
 .secondaryBtn{
-  padding:11px 16px; background:rgba(255,255,255,.06);
+  padding:11px 16px; background:var(--glass);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  color:white; border-radius:11px; font-weight:700; font-size:13px;
-  border:1px solid rgba(255,255,255,.12);
+  color:var(--text); border-radius:11px; font-weight:700; font-size:13px;
+  border:1px solid var(--border);
 }
 .authLinks{ margin-top:18px; text-align:center; font-size:13px; }
-.textBtn{ background:none; color:var(--accent2); font-weight:700; padding:4px 6px; border-radius:6px; }
+.textBtn{ background:none; color:var(--accent3); font-weight:700; padding:4px 6px; border-radius:6px; }
 
-/* APP */
 #app{ padding-bottom:calc(96px + env(safe-area-inset-bottom)); animation:appFade .3s ease; position:relative; z-index:1; }
 @keyframes appFade{ from{opacity:0;} to{opacity:1;} }
 
-/* HEADER */
 .header{
   height:60px; position:fixed; top:0; left:0; right:0; z-index:100;
   display:flex; align-items:center; gap:12px; padding:0 16px;
   padding-top:env(safe-area-inset-top);
-  background:rgba(10,13,24,.45);
+  background:rgba(11,15,32,.5);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
   border-bottom:1px solid transparent;
   transition:background .2s, border-color .2s;
 }
 .header.scrolled{
-  background:rgba(10,13,24,.65);
-  border-bottom-color:rgba(255,255,255,.08);
+  background:rgba(11,15,32,.7);
+  border-bottom-color:var(--border-soft);
 }
 .logo{
-  color:var(--accent2); font-weight:900; letter-spacing:3.5px; font-size:18px;
+  color:var(--accent3); font-weight:900; letter-spacing:3.5px; font-size:18px;
   white-space:nowrap; text-shadow:0 0 20px rgba(167,139,250,.5);
 }
 .desktopNav{ display:none; gap:4px; }
@@ -210,15 +193,15 @@ button:active{ transform: scale(.96) !important; }
   color:var(--muted); background:none; padding:8px 12px; font-size:14px; border-radius:8px;
 }
 .desktopNav button.active{
-  color:white; background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.1);
+  color:var(--text); background:var(--glass-strong);
+  border:1px solid var(--border);
 }
 .searchBox{
   margin-left:auto; display:flex; align-items:center; gap:7px;
-  background:rgba(255,255,255,.05);
+  background:var(--glass);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:0 12px;
+  border:1px solid var(--border); border-radius:12px; padding:0 12px;
   width:100%; max-width:270px;
   transition:border-color .15s, box-shadow .15s, background .15s;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 4px 15px rgba(0,0,0,.3);
@@ -227,10 +210,9 @@ button:active{ transform: scale(.96) !important; }
   border-color:rgba(167,139,250,.55); background:rgba(255,255,255,.07);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.1), 0 0 0 3px rgba(139,92,246,.15), 0 0 25px rgba(139,92,246,.25);
 }
-.searchBox input{ width:100%; border:0; outline:0; background:none; color:white; padding:9px 2px; font-size:14px; }
-.searchBox input::placeholder{ color:rgba(164,172,191,.7); }
+.searchBox input{ width:100%; border:0; outline:0; background:none; color:var(--text); padding:9px 2px; font-size:14px; }
+.searchBox input::placeholder{ color:rgba(167,176,197,.7); }
 
-/* HERO */
 .hero{ height:600px; position:relative; overflow:hidden; }
 .heroSlide{
   position:absolute; inset:0; opacity:0; transition:opacity .8s ease;
@@ -241,16 +223,16 @@ button:active{ transform: scale(.96) !important; }
 .heroOverlay{
   position:absolute; inset:0; z-index:2;
   background:
-    linear-gradient(180deg, rgba(4,6,13,.3) 0%, transparent 30%, rgba(4,6,13,.4) 60%, rgba(4,6,13,.95) 100%),
-    linear-gradient(90deg, rgba(4,6,13,.65) 0%, transparent 60%);
+    linear-gradient(180deg, rgba(7,11,26,.3) 0%, transparent 30%, rgba(7,11,26,.4) 60%, rgba(7,11,26,.95) 100%),
+    linear-gradient(90deg, rgba(7,11,26,.65) 0%, transparent 60%);
 }
 .heroContent{
   position:absolute; z-index:5; left:14px; right:14px; bottom:20px;
   max-width:680px; padding:22px 22px 20px; border-radius:22px;
-  background:rgba(10,13,24,.4);
+  background:rgba(11,15,32,.45);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  border:1px solid rgba(255,255,255,.12);
+  border:1px solid var(--border);
   box-shadow:0 20px 60px rgba(0,0,0,.6), 0 0 40px rgba(139,92,246,.12),
     inset 0 1px 0 rgba(255,255,255,.14), inset 0 -1px 0 rgba(0,0,0,.25);
   animation:heroContent .3s ease; overflow:hidden;
@@ -264,27 +246,27 @@ button:active{ transform: scale(.96) !important; }
   text-shadow:0 0 10px rgba(167,139,250,.5);
 }
 .heroTitle{ font-size:34px; line-height:1.05; margin:0 0 10px; letter-spacing:-1px; font-weight:900; text-shadow:0 4px 20px rgba(0,0,0,.6); }
-.heroMeta{ display:flex; flex-wrap:wrap; gap:10px; font-size:13px; color:rgba(255,255,255,.85); margin-bottom:10px; }
+.heroMeta{ display:flex; flex-wrap:wrap; gap:10px; font-size:13px; color:rgba(248,250,252,.85); margin-bottom:10px; }
 .heroMeta span{ display:flex; align-items:center; gap:4px; }
 .heroDescription{
-  color:rgba(230,235,245,.85); line-height:1.55; max-width:600px;
+  color:rgba(226,232,245,.85); line-height:1.55; max-width:600px;
   font-size:14px; margin:0 0 18px;
   display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
 }
 .heroActions{ display:flex; gap:10px; margin-top:16px; }
 .playBtn{
   padding:13px 24px; border-radius:12px;
-  background:linear-gradient(135deg, rgba(255,255,255,.95), rgba(230,235,255,.9));
-  color:#0a0d18; font-weight:800; font-size:14px;
+  background:linear-gradient(135deg, rgba(255,255,255,.95), rgba(226,232,255,.9));
+  color:#070B1A; font-weight:800; font-size:14px;
   display:flex; align-items:center; gap:8px;
   box-shadow:0 8px 25px rgba(255,255,255,.15), inset 0 1px 0 #fff, inset 0 -2px 4px rgba(0,0,0,.08);
 }
 .listBtn{
   padding:13px 20px; border-radius:12px;
-  background:rgba(255,255,255,.08);
+  background:var(--glass-strong);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  color:white; font-weight:700; font-size:14px;
+  color:var(--text); font-weight:700; font-size:14px;
   border:1px solid rgba(255,255,255,.15);
   display:flex; align-items:center; gap:8px;
   box-shadow:0 8px 25px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.12);
@@ -294,16 +276,15 @@ button:active{ transform: scale(.96) !important; }
   width:6px; height:6px; border-radius:99px; background:rgba(255,255,255,.35);
   transition:all .3s ease; cursor:pointer;
 }
-.heroDot.active{ width:24px; background:white; box-shadow:0 0 12px rgba(255,255,255,.85), 0 0 20px rgba(167,139,250,.6); }
+.heroDot.active{ width:24px; background:#fff; box-shadow:0 0 12px rgba(255,255,255,.85), 0 0 20px rgba(167,139,250,.6); }
 
-/* SECTIONS */
 .section{ padding:14px 16px 0; animation:sectionFade .35s ease; }
 @keyframes sectionFade{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
 .sectionHead{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding:0 2px; }
 .sectionTitle{ font-size:18px; margin:0; font-weight:800; letter-spacing:-.3px; text-shadow:0 2px 10px rgba(0,0,0,.5); }
 .seeAll{
-  background:rgba(255,255,255,.05);
-  color:var(--accent2); font-size:12px; font-weight:700;
+  background:var(--glass);
+  color:var(--accent3); font-size:12px; font-weight:700;
   padding:7px 12px; border-radius:9px;
   border:1px solid rgba(167,139,250,.25);
 }
@@ -319,7 +300,7 @@ button:active{ transform: scale(.96) !important; }
 .poster{
   width:100%; aspect-ratio:2/3; border-radius:14px; overflow:hidden;
   background:rgba(255,255,255,.04); position:relative;
-  border:1px solid rgba(255,255,255,.12);
+  border:1px solid var(--border);
   box-shadow:0 8px 25px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.12), 0 0 20px rgba(139,92,246,.1);
 }
 .poster img{ width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.05); }
@@ -330,11 +311,11 @@ button:active{ transform: scale(.96) !important; }
 }
 .rating{
   position:absolute; left:8px; bottom:8px; padding:4px 8px;
-  background:rgba(10,13,24,.6);
+  background:rgba(7,11,26,.65);
   border-radius:8px; font-size:10px; font-weight:700;
   border:1px solid rgba(255,255,255,.15); z-index:3;
   box-shadow:0 4px 12px rgba(0,0,0,.4);
-  color:rgba(255,255,255,.95);
+  color:var(--rating);
 }
 .cardTitle{
   margin-top:9px; font-size:13px; font-weight:700;
@@ -353,23 +334,21 @@ button:active{ transform: scale(.96) !important; }
   box-shadow:0 0 8px rgba(139,92,246,.6);
 }
 
-/* PAGE */
 .page{ padding:78px 16px 24px; animation:pageFade .18s ease; }
 @keyframes pageFade{ from{opacity:0;} to{opacity:1;} }
 .pageTitle{ margin:0 0 18px; font-size:22px; font-weight:900; letter-spacing:-.5px; text-shadow:0 2px 12px rgba(0,0,0,.5); }
 .grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
 .grid .movieCard{ width:auto; }
 
-/* PROFILE */
 .profilePage{ padding-top:82px; }
 
 .userCard{
   display:flex; align-items:center; gap:16px;
   padding:20px;
-  background:rgba(255,255,255,.05);
+  background:var(--glass);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  border:1px solid rgba(255,255,255,.1);
+  border:1px solid var(--border);
   border-radius:22px;
   margin-bottom:20px;
   box-shadow:0 15px 45px rgba(0,0,0,.5), 0 0 40px rgba(139,92,246,.1),
@@ -379,7 +358,7 @@ button:active{ transform: scale(.96) !important; }
 .userAvatarWrap{ position:relative; flex:0 0 auto; }
 .userAvatar{
   width:72px; height:72px; border-radius:50%;
-  object-fit:cover; background:rgba(255,255,255,.06);
+  object-fit:cover; background:var(--glass);
   border:2px solid rgba(167,139,250,.5);
   box-shadow:0 0 25px rgba(139,92,246,.6), inset 0 2px 4px rgba(0,0,0,.3);
   position:relative; z-index:1;
@@ -397,7 +376,7 @@ button:active{ transform: scale(.96) !important; }
 }
 .userBadge{
   display:inline-block; padding:4px 10px;
-  background:linear-gradient(135deg, rgba(139,92,246,.35), rgba(59,130,246,.35));
+  background:linear-gradient(135deg, rgba(139,92,246,.35), rgba(99,102,241,.35));
   border:1px solid rgba(167,139,250,.5); border-radius:99px;
   font-size:10px; font-weight:800; letter-spacing:1.5px;
   color:var(--accent3); text-transform:uppercase;
@@ -405,10 +384,10 @@ button:active{ transform: scale(.96) !important; }
 }
 
 .profileMenu{
-  background:rgba(255,255,255,.045);
+  background:var(--glass-soft);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  border:1px solid rgba(255,255,255,.1);
+  border:1px solid var(--border);
   border-radius:22px;
   overflow:hidden;
   box-shadow:0 15px 45px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.12);
@@ -416,17 +395,17 @@ button:active{ transform: scale(.96) !important; }
 .menuItem{
   display:flex; align-items:center; gap:14px; width:100%;
   padding:16px 18px;
-  background:transparent; color:white;
+  background:transparent; color:var(--text);
   border-bottom:1px solid rgba(255,255,255,.05);
   text-align:left; font-size:15px; font-weight:600;
   position:relative;
 }
 .menuItem:last-child{ border-bottom:0; }
-.menuItem:active{ background:rgba(255,255,255,.08); }
+.menuItem:active{ background:var(--glass-strong); }
 .menuIcon{
   width:26px; height:26px; flex:0 0 auto;
   display:flex; align-items:center; justify-content:center;
-  color:var(--accent2);
+  color:var(--accent3);
   filter:drop-shadow(0 0 8px rgba(167,139,250,.5));
 }
 .menuIcon svg{
@@ -436,7 +415,7 @@ button:active{ transform: scale(.96) !important; }
 }
 .menuLabel{ flex:1; }
 .menuChevron{
-  flex:0 0 auto; color:rgba(164,172,191,.5);
+  flex:0 0 auto; color:rgba(167,176,197,.5);
   display:flex; align-items:center;
 }
 .menuChevron svg{ width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
@@ -449,10 +428,10 @@ button:active{ transform: scale(.96) !important; }
 }
 .subBackBtn{
   width:42px; height:42px; border-radius:50%;
-  background:rgba(255,255,255,.08);
+  background:var(--glass-strong);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  color:white;
+  color:var(--text);
   display:flex; align-items:center; justify-content:center;
   border:1px solid rgba(255,255,255,.15);
   box-shadow:0 4px 15px rgba(0,0,0,.5);
@@ -462,10 +441,10 @@ button:active{ transform: scale(.96) !important; }
 .subPageTitle{ font-size:22px; font-weight:900; letter-spacing:-.4px; margin:0; }
 
 .settingGroup{
-  background:rgba(255,255,255,.045);
+  background:var(--glass-soft);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  border:1px solid rgba(255,255,255,.1);
+  border:1px solid var(--border);
   border-radius:20px;
   margin-bottom:16px;
   overflow:hidden;
@@ -481,15 +460,15 @@ button:active{ transform: scale(.96) !important; }
   display:flex; align-items:center; gap:14px;
   padding:15px 18px;
   border-bottom:1px solid rgba(255,255,255,.05);
-  color:white; font-size:14px; font-weight:600;
+  color:var(--text); font-size:14px; font-weight:600;
   background:transparent; width:100%; text-align:left;
 }
 .settingItem:last-child{ border-bottom:0; }
-.settingItem:active{ background:rgba(255,255,255,.08); }
+.settingItem:active{ background:var(--glass-strong); }
 .settingIcon{
   width:26px; height:26px; flex:0 0 auto;
   display:flex; align-items:center; justify-content:center;
-  color:var(--accent2);
+  color:var(--accent3);
   filter:drop-shadow(0 0 8px rgba(167,139,250,.5));
 }
 .settingIcon svg{ width:20px; height:20px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
@@ -500,26 +479,26 @@ button:active{ transform: scale(.96) !important; }
   position:relative; width:48px; height:28px; flex:0 0 auto;
   border-radius:99px;
   background:rgba(255,255,255,.1);
-  border:1px solid rgba(255,255,255,.12);
+  border:1px solid var(--border);
   transition:background .2s, box-shadow .2s;
   cursor:pointer;
 }
 .switch::after{
   content:""; position:absolute; top:2px; left:2px;
   width:22px; height:22px; border-radius:50%;
-  background:white;
+  background:#fff;
   box-shadow:0 2px 8px rgba(0,0,0,.4);
   transition:transform .2s cubic-bezier(.2,.8,.2,1);
 }
 .switch.on{
-  background:linear-gradient(135deg, rgba(139,92,246,.8), rgba(59,130,246,.8));
+  background:linear-gradient(135deg, rgba(139,92,246,.8), rgba(99,102,241,.8));
   box-shadow:0 0 20px rgba(139,92,246,.5), inset 0 1px 0 rgba(255,255,255,.2);
 }
 .switch.on::after{ transform:translateX(20px); }
 
 .settingSelect{
-  background:rgba(255,255,255,.08);
-  color:white; border:1px solid rgba(255,255,255,.14);
+  background:var(--glass-strong);
+  color:var(--text); border:1px solid rgba(255,255,255,.14);
   border-radius:10px; padding:8px 12px; font-size:13px; font-weight:600;
   outline:none; appearance:none; -webkit-appearance:none;
   background-image:
@@ -529,15 +508,15 @@ button:active{ transform: scale(.96) !important; }
   background-size:5px 5px; background-repeat:no-repeat;
   padding-right:30px;
 }
-.settingSelect option{ background:#0d101a; color:white; }
+.settingSelect option{ background:#0B1024; color:var(--text); }
 
 .editRow{ padding:14px 18px; border-bottom:1px solid rgba(255,255,255,.05); }
 .editRow:last-child{ border-bottom:0; }
 .editRow label{ display:block; color:var(--muted); font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; margin-bottom:8px; }
 .editRow .input{
-  padding:12px 14px; background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:11px; color:white; font-size:14px; width:100%;
+  padding:12px 14px; background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:11px; color:var(--text); font-size:14px; width:100%;
 }
 .editRow .input:focus{
   border-color:rgba(167,139,250,.6);
@@ -550,12 +529,12 @@ button:active{ transform: scale(.96) !important; }
 .faqQ{
   display:flex; align-items:center; justify-content:space-between;
   padding:16px 18px; width:100%;
-  background:transparent; color:white;
+  background:transparent; color:var(--text);
   font-size:14px; font-weight:700; text-align:left;
 }
 .faqQ::after{
   content:"+"; font-size:22px; font-weight:300;
-  color:var(--accent2); transition:transform .2s;
+  color:var(--accent3); transition:transform .2s;
   line-height:1;
 }
 .faqItem.open .faqQ::after{ transform:rotate(45deg); }
@@ -578,12 +557,11 @@ button:active{ transform: scale(.96) !important; }
   content:"✨"; display:block; font-size:40px; margin-bottom:14px; opacity:.4;
 }
 
-/* DETAIL PAGE */
 .detailPage{
   position:fixed; inset:0; z-index:500; overflow-y:auto; overflow-x:hidden;
   -webkit-overflow-scrolling:touch; overscroll-behavior:contain;
   animation:detailSlide .15s cubic-bezier(.2,.8,.2,1);
-  background:rgba(4,6,13,.4);
+  background:rgba(7,11,26,.4);
 }
 @keyframes detailSlide{ from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);} }
 .detailPage.closing{ animation:detailClose .15s ease forwards; }
@@ -596,8 +574,8 @@ button:active{ transform: scale(.96) !important; }
 .dpHero::after{
   content:""; position:absolute; inset:0;
   background:
-    linear-gradient(180deg, rgba(4,6,13,.35) 0%, transparent 30%, transparent 60%, rgba(4,6,13,.95) 100%),
-    linear-gradient(90deg, rgba(4,6,13,.5) 0%, transparent 50%);
+    linear-gradient(180deg, rgba(7,11,26,.35) 0%, transparent 30%, transparent 60%, rgba(7,11,26,.95) 100%),
+    linear-gradient(90deg, rgba(7,11,26,.5) 0%, transparent 50%);
   z-index: 1;
   pointer-events: none;
 }
@@ -605,7 +583,7 @@ button:active{ transform: scale(.96) !important; }
   position:absolute; top:14px; z-index:10;
   width:42px; height:42px; border-radius:50%;
   background:rgba(255,255,255,.1);
-  color:white; display:flex; align-items:center; justify-content:center;
+  color:var(--text); display:flex; align-items:center; justify-content:center;
   border:1px solid rgba(255,255,255,.18);
   box-shadow:0 4px 15px rgba(0,0,0,.5);
 }
@@ -614,7 +592,7 @@ button:active{ transform: scale(.96) !important; }
 .dpBigPlay{
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
   z-index:5; width:74px; height:74px; border-radius:50%;
-  background:rgba(255,255,255,.14); color:white; font-size:24px;
+  background:rgba(255,255,255,.14); color:var(--text); font-size:24px;
   border:2px solid rgba(255,255,255,.5);
   display:flex; align-items:center; justify-content:center;
   padding-left:5px;
@@ -638,9 +616,6 @@ button:active{ transform: scale(.96) !important; }
 }
 #inlineVideoContainer.hidden { display: none; }
 
-/* =========================================================
-   NETFLIX-STYLE INLINE PLAYER
-========================================================= */
 .androidPlayerShell {
   position: relative;
   width: 100%;
@@ -816,7 +791,7 @@ button:active{ transform: scale(.96) !important; }
   position: absolute;
   top: 0; left: 0; bottom: 0;
   width: 0%;
-  background: #e50914;
+  background: #8B5CF6;
   border-radius: 2px;
 }
 .androidSeekThumb {
@@ -824,7 +799,7 @@ button:active{ transform: scale(.96) !important; }
   top: 50%; left: 0%;
   width: 16px; height: 16px;
   border-radius: 50%;
-  background: #e50914;
+  background: #8B5CF6;
   transform: translate(-50%, -50%) scale(0);
   box-shadow: 0 0 10px rgba(0,0,0,.7);
   pointer-events: none;
@@ -893,7 +868,6 @@ button:active{ transform: scale(.96) !important; }
   background: #000;
 }
 
-/* Video loading poster */
 .androidPosterLoader {
   position: absolute;
   inset: 0;
@@ -938,15 +912,14 @@ button:active{ transform: scale(.96) !important; }
   to { transform: rotate(360deg); }
 }
 
-/* Detail Info */
 .dpInfo{
   padding:20px 20px 16px; margin:-50px 14px 0;
   position:relative; z-index:3;
   animation:infoFade .25s ease .05s both;
-  background:rgba(255,255,255,.05);
+  background:var(--glass);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  border:1px solid rgba(255,255,255,.1); border-radius:22px;
+  border:1px solid var(--border); border-radius:22px;
   box-shadow:0 20px 60px rgba(0,0,0,.5), 0 0 40px rgba(139,92,246,.12),
     inset 0 1px 0 rgba(255,255,255,.14), inset 0 -1px 0 rgba(0,0,0,.2);
   overflow:hidden;
@@ -966,16 +939,16 @@ button:active{ transform: scale(.96) !important; }
   border:1px solid rgba(167,139,250,.35);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.12), 0 0 15px rgba(139,92,246,.25);
 }
-.dpMetaRow{ display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px; font-size:12px; color:rgba(255,255,255,.85); }
+.dpMetaRow{ display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px; font-size:12px; color:rgba(248,250,252,.85); }
 .dpMetaRow span{
-  background:rgba(255,255,255,.06);
+  background:var(--glass);
   padding:6px 11px; border-radius:9px;
-  border:1px solid rgba(255,255,255,.1); font-weight:600;
+  border:1px solid var(--border); font-weight:600;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 2px 8px rgba(0,0,0,.3);
 }
 .dpMetaRow .dpRating{
-  color:#ffd76a; border-color:rgba(255,215,106,.3);
-  background:linear-gradient(135deg, rgba(255,215,106,.12), rgba(255,215,106,.06));
+  color:var(--rating); border-color:rgba(250,204,21,.3);
+  background:linear-gradient(135deg, rgba(250,204,21,.12), rgba(250,204,21,.06));
 }
 .dpActions{
   display:grid; grid-template-columns:1fr 1fr; gap:10px;
@@ -984,26 +957,26 @@ button:active{ transform: scale(.96) !important; }
 }
 @keyframes actionsFade{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
 .dpActionBtn{
-  padding:14px 14px; background:rgba(255,255,255,.055);
+  padding:14px 14px; background:var(--glass-soft);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  color:white; border-radius:14px; font-weight:700; font-size:13px;
-  border:1px solid rgba(255,255,255,.12);
+  color:var(--text); border-radius:14px; font-weight:700; font-size:13px;
+  border:1px solid var(--border);
   display:flex; align-items:center; justify-content:center; gap:8px;
   box-shadow:0 4px 15px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.1), inset 0 -1px 0 rgba(0,0,0,.15);
   position:relative; overflow:hidden;
 }
 .dpActionBtn.active{
-  background:linear-gradient(135deg, rgba(139,92,246,.55), rgba(59,130,246,.55));
+  background:linear-gradient(135deg, rgba(139,92,246,.55), rgba(99,102,241,.55));
   border-color:rgba(167,139,250,.5);
   box-shadow:0 8px 25px rgba(139,92,246,.4), inset 0 1px 0 rgba(255,255,255,.2), 0 0 30px rgba(139,92,246,.35);
 }
 .dpResources{
   padding:20px 18px 12px; margin:16px 14px 0;
-  background:rgba(255,255,255,.045);
+  background:var(--glass-soft);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  border:1px solid rgba(255,255,255,.1); border-radius:22px;
+  border:1px solid var(--border); border-radius:22px;
   box-shadow:0 12px 40px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.12);
   animation:resourcesFade .25s ease .15s both;
   position:relative; overflow:hidden;
@@ -1012,17 +985,17 @@ button:active{ transform: scale(.96) !important; }
 .dpResHead{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
 .dpResTitle{ font-size:15px; font-weight:800; letter-spacing:-.2px; text-shadow:0 2px 10px rgba(0,0,0,.4); }
 .dpUploader{
-  font-size:12px; color:rgba(255,255,255,.8);
+  font-size:12px; color:rgba(248,250,252,.8);
   display:flex; align-items:center; gap:8px;
   padding:5px 12px 5px 5px;
-  background:rgba(255,255,255,.06);
-  border-radius:99px; border:1px solid rgba(255,255,255,.1);
+  background:var(--glass);
+  border-radius:99px; border:1px solid var(--border);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 2px 10px rgba(0,0,0,.3);
 }
 .dpUploaderIcon{
   width:24px; height:24px; border-radius:50%;
-  background:linear-gradient(135deg, rgba(139,92,246,.9), rgba(59,130,246,.9));
-  color:white; display:inline-flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg, rgba(139,92,246,.9), rgba(99,102,241,.9));
+  color:#fff; display:inline-flex; align-items:center; justify-content:center;
   font-size:11px; font-weight:900;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.3), 0 0 12px rgba(139,92,246,.5);
 }
@@ -1030,10 +1003,10 @@ button:active{ transform: scale(.96) !important; }
 .dpDropdowns::-webkit-scrollbar{ display:none; }
 .dpSelect{
   flex:1; min-width:130px; padding:12px 14px;
-  background:rgba(255,255,255,.06);
+  background:var(--glass);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  color:white; border:1px solid rgba(255,255,255,.12); border-radius:12px;
+  color:var(--text); border:1px solid var(--border); border-radius:12px;
   font-size:13px; font-weight:700; outline:none;
   appearance:none; -webkit-appearance:none;
   background-image:
@@ -1044,7 +1017,7 @@ button:active{ transform: scale(.96) !important; }
   padding-right:36px;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.1), 0 4px 15px rgba(0,0,0,.3);
 }
-.dpSelect option{ background:#0d101a; color:white; }
+.dpSelect option{ background:#0B1024; color:var(--text); }
 .dpEpisodes{
   display:flex; gap:10px; overflow-x:auto; scrollbar-width:none;
   padding:4px 0 8px; scroll-behavior:smooth; -webkit-overflow-scrolling:touch;
@@ -1053,11 +1026,11 @@ button:active{ transform: scale(.96) !important; }
 .dpEpisodes::-webkit-scrollbar{ display:none; }
 .dpEpBox{
   flex:0 0 auto; min-width:58px; height:58px; padding:0 16px;
-  background:rgba(255,255,255,.06);
+  background:var(--glass);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  color:white; border-radius:14px; font-weight:800; font-size:14px;
-  border:1px solid rgba(255,255,255,.12);
+  color:var(--text); border-radius:14px; font-weight:800; font-size:14px;
+  border:1px solid var(--border);
   display:flex; align-items:center; justify-content:center;
   scroll-snap-align:start;
   transition:all .15s cubic-bezier(.2,.8,.2,1);
@@ -1066,8 +1039,8 @@ button:active{ transform: scale(.96) !important; }
 }
 .dpEpBox:active{ transform: scale(.92) !important; }
 .dpEpBox.active{
-  background:linear-gradient(135deg, rgba(139,92,246,.75), rgba(59,130,246,.75));
-  border-color:rgba(167,139,250,.6); color:white;
+  background:linear-gradient(135deg, rgba(139,92,246,.75), rgba(99,102,241,.75));
+  border-color:rgba(167,139,250,.6); color:#fff;
   box-shadow:0 8px 25px rgba(139,92,246,.55), inset 0 1px 0 rgba(255,255,255,.25), 0 0 30px rgba(139,92,246,.5);
   transform:translateY(-2px);
 }
@@ -1091,11 +1064,11 @@ button:active{ transform: scale(.96) !important; }
   border-radius:99px; box-shadow:0 0 12px rgba(139,92,246,.7);
 }
 .dpCommentsBtn{
-  background:rgba(255,255,255,.06);
-  color:rgba(255,255,255,.85); font-size:12px; font-weight:600;
+  background:var(--glass);
+  color:rgba(248,250,252,.85); font-size:12px; font-weight:600;
   display:flex; align-items:center; gap:7px;
   padding:9px 14px; border-radius:99px;
-  border:1px solid rgba(255,255,255,.1);
+  border:1px solid var(--border);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 4px 15px rgba(0,0,0,.3);
 }
 .dpCommentsDot{
@@ -1112,15 +1085,14 @@ button:active{ transform: scale(.96) !important; }
 .dpRelatedGrid .cardMeta{ font-size:10px; }
 .dpRelatedGrid .rating{ font-size:9px; padding:3px 6px; }
 
-/* BOTTOM NAV */
 .bottomNav{
   position:fixed; z-index:200;
   bottom:calc(14px + env(safe-area-inset-bottom));
   left:14px; right:14px; height:66px;
-  background:rgba(255,255,255,.055);
+  background:var(--glass);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  border:1px solid rgba(255,255,255,.12);
+  border:1px solid var(--border);
   border-radius:22px;
   display:flex; justify-content:space-around; align-items:center;
   box-shadow:0 20px 50px rgba(0,0,0,.6), 0 0 40px rgba(139,92,246,.15),
@@ -1128,12 +1100,12 @@ button:active{ transform: scale(.96) !important; }
   overflow:hidden;
 }
 .bottomNav button{
-  background:none; color:rgba(164,172,191,.85); font-size:10px; font-weight:600;
+  background:none; color:rgba(167,176,197,.85); font-size:10px; font-weight:600;
   display:grid; place-items:center; gap:3px; padding:8px 12px;
   border-radius:14px; transition:color .15s, background .15s;
   position:relative; z-index:1;
 }
-.bottomNav button.active{ color:white; }
+.bottomNav button.active{ color:var(--text); }
 .bottomNav button.active::before{
   content:""; position:absolute; top:-1px; left:50%; transform:translateX(-50%);
   width:22px; height:3px;
@@ -1144,7 +1116,6 @@ button:active{ transform: scale(.96) !important; }
 .navIcon{ font-size:20px; transition:transform .15s; filter:drop-shadow(0 0 6px rgba(167,139,250,.3)); }
 .bottomNav button.active .navIcon{ transform:translateY(-2px) scale(1.1); filter:drop-shadow(0 0 10px rgba(167,139,250,.7)); }
 
-/* TOAST */
 .toast{
   position:fixed; z-index:2000;
   bottom:calc(100px + env(safe-area-inset-bottom));
@@ -1152,7 +1123,7 @@ button:active{ transform: scale(.96) !important; }
   background:rgba(255,255,255,.1);
   backdrop-filter: blur(10px) saturate(1.4) !important;
   -webkit-backdrop-filter: blur(10px) saturate(1.4) !important;
-  border:1px solid rgba(255,255,255,.15); color:white;
+  border:1px solid rgba(255,255,255,.15); color:var(--text);
   padding:12px 18px; border-radius:14px; font-size:13px; font-weight:600;
   box-shadow:0 15px 40px rgba(0,0,0,.55), 0 0 30px rgba(139,92,246,.2), inset 0 1px 0 rgba(255,255,255,.15);
   animation:toastIn .25s cubic-bezier(.2,.8,.2,1);
@@ -1160,11 +1131,9 @@ button:active{ transform: scale(.96) !important; }
 }
 @keyframes toastIn{ from{opacity:0; transform:translateX(-50%) translateY(20px) scale(.9);} to{opacity:1; transform:translateX(-50%) translateY(0) scale(1);} }
 
-/* EMPTY */
 .empty{ padding:60px 20px; text-align:center; color:var(--muted); font-size:14px; }
 .empty::before{ content:"🎬"; display:block; font-size:48px; margin-bottom:16px; opacity:.4; }
 
-/* DESKTOP */
 @media(min-width:760px){
   .header{ height:70px; padding:0 28px; }
   .desktopNav{ display:flex; }
@@ -1188,13 +1157,10 @@ button:active{ transform: scale(.96) !important; }
 ::-webkit-scrollbar{ width:8px; height:8px; }
 ::-webkit-scrollbar-track{ background:transparent; }
 ::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.1); border-radius:99px; }
-::selection{ background:rgba(139,92,246,.5); color:white; }
+::selection{ background:rgba(139,92,246,.5); color:#fff; }
 </style>
 </head>
 <body>
-
-<div id="bgLayer"></div>
-<div id="bgOverlay"></div>
 
 <div id="pageLoader">
   <div class="loaderBox">
@@ -1304,13 +1270,13 @@ auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
 const APP = {
   BRAND: "SHANFILX",
-  PLACEHOLDER: "https://placehold.co/400x600/171b26/ffffff?text=SHANFILX"
+  PLACEHOLDER: "https://placehold.co/400x600/070B1A/F8FAFC?text=SHANFILX"
 };
 
 const state = {
   user:null, profile:null, page:"home", authMode:"login",
   content:{ movies:{}, tvShows:{}, kdrama:{}, anime:{} },
-  myList:{}, history:{}, heroIndex:0, heroTimer:null,
+  myList:{}, history:{}, downloads:{}, heroIndex:0, heroTimer:null,
   passwordVisible:false,
   profileSubPage:null,
   settings:{
@@ -1336,7 +1302,7 @@ function esc(value){
 function arr(obj){ return Object.entries(obj || {}).map(([id,value]) => ({ id, ...(value || {}) })); }
 
 /* =========================================================
-   HELPERS — published / video url / episodes
+   HELPERS
 ========================================================= */
 function isPublished(item){
   if(!item || typeof item !== "object") return false;
@@ -1367,6 +1333,85 @@ function videoUrlOf(obj){
       if(typeof nested === "string" && nested.trim()) return nested.trim();
     }
   }
+  return "";
+}
+
+/* =========================================================
+   DOWNLOAD SYSTEM — FIXED
+   Admin যেই ফিল্ডে download link দিক, সব ডিটেক্ট করবে
+========================================================= */
+
+function extractUrlFromValue(v){
+  if(typeof v === "string" && v.trim()) return v.trim();
+  if(v && typeof v === "object"){
+    const keys = ["url","link","src","href","file","downloadUrl","downloadURL","dl","source"];
+    for(const k of keys){
+      if(typeof v[k] === "string" && v[k].trim()) return v[k].trim();
+    }
+  }
+  return "";
+}
+
+function downloadUrlOf(obj){
+  if(!obj || typeof obj !== "object") return "";
+
+  // case-insensitive + separator-insensitive key map
+  const keyMap = {};
+  Object.keys(obj).forEach(k => {
+    keyMap[k.toLowerCase().replace(/[\s_\-\.]/g, "")] = k;
+  });
+
+  // Common admin field names
+  const knownKeys = [
+    "downloadurl","downloadlink","download_url","download_link",
+    "directdownload","direct_download","filedownload","file_download",
+    "downloadfile","download_file","downloadpath","download_path",
+    "dlurl","dllink","dl_url","dl_link",
+    "saveurl","save_url","fileurl","file_url",
+    "download","dl"
+  ];
+
+  for(const k of knownKeys){
+    const realKey = keyMap[k];
+    if(realKey){
+      const url = extractUrlFromValue(obj[realKey]);
+      if(url) return url;
+    }
+  }
+
+  // যেকোনো key যাতে "download" আছে
+  for(const k of Object.keys(obj)){
+    if(/download/i.test(k)){
+      const url = extractUrlFromValue(obj[k]);
+      if(url) return url;
+    }
+  }
+
+  // Quality based download object: downloads: { 720p: "...", 1080p: "..." }
+  if(obj.downloads && typeof obj.downloads === "object" && !Array.isArray(obj.downloads)){
+    const order = ["2160p","4k","1080p","720p","480p","360p","high","medium","low","hd","sd","auto"];
+    for(const q of order){
+      if(obj.downloads[q]){
+        const url = extractUrlFromValue(obj.downloads[q]);
+        if(url) return url;
+      }
+    }
+    for(const k of Object.keys(obj.downloads)){
+      const url = extractUrlFromValue(obj.downloads[k]);
+      if(url) return url;
+    }
+  }
+
+  // Array based links
+  for(const arrKey of ["downloadLinks","downloadUrls","download_links","downloads_list"]){
+    if(Array.isArray(obj[arrKey])){
+      for(const entry of obj[arrKey]){
+        const url = extractUrlFromValue(entry);
+        if(url) return url;
+      }
+    }
+  }
+
   return "";
 }
 
@@ -1412,16 +1457,12 @@ function toast(message){
   t.textContent = message;
   t.classList.remove("hidden");
   clearTimeout(window._toastTimer);
-  window._toastTimer = setTimeout(() => t.classList.add("hidden"), 2000);
+  window._toastTimer = setTimeout(() => t.classList.add("hidden"), 2200);
 }
 
 function haptic(ms = 8){ if(navigator.vibrate) try { navigator.vibrate(ms); } catch(e){} }
 
-function updateBackground(imageUrl){
-  const bg = $("bgLayer");
-  if(!bg || !imageUrl) return;
-  bg.style.backgroundImage = `url("${imageUrl}")`;
-}
+function updateBackground(imageUrl){ /* no-op */ }
 
 let _saveTimers = {};
 function saveProgressInline(key, video, completed) {
@@ -1438,6 +1479,167 @@ function saveProgressInline(key, video, completed) {
     db.ref('users/' + state.user.uid + '/watchHistory/' + safeKey)
       .update(data).catch(()=>{});
   }, 700);
+}
+
+/* =========================================================
+   IMAGE COMPRESSION
+========================================================= */
+function compressImage(file, maxSize = 400, quality = 0.85){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error("FileReader error"));
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onerror = () => reject(new Error("Image load error"));
+      img.onload = () => {
+        try {
+          let { width, height } = img;
+          const scale = Math.min(1, maxSize / Math.max(width, height));
+          width  = Math.max(1, Math.round(width  * scale));
+          height = Math.max(1, Math.round(height * scale));
+
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.fillStyle = "#0B1024";
+          ctx.fillRect(0, 0, width, height);
+          ctx.drawImage(img, 0, 0, width, height);
+
+          const dataUrl = canvas.toDataURL("image/jpeg", quality);
+          resolve(dataUrl);
+        } catch(err){
+          reject(err);
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function dataUrlToBlob(dataUrl){
+  const parts = dataUrl.split(",");
+  const mime = (parts[0].match(/:(.*?);/) || [,"image/jpeg"])[1];
+  const bin  = atob(parts[1]);
+  const len  = bin.length;
+  const buf  = new Uint8Array(len);
+  for(let i = 0; i < len; i++) buf[i] = bin.charCodeAt(i);
+  return new Blob([buf], { type: mime });
+}
+
+/* =========================================================
+   DOWNLOAD HANDLING
+========================================================= */
+function getCurrentDownloadTarget(){
+  const item = currentDetail.item;
+  if(!item) return null;
+
+  const baseTitle = item.title || "video";
+
+  // TV show হলে episode level এর লিংক খুঁজবো
+  if(item.seasons && Object.keys(item.seasons).length){
+    const seasonNum = currentDetail.selectedSeason
+      || Object.keys(item.seasons).sort((a,b) => Number(a) - Number(b))[0];
+    const season = item.seasons[seasonNum];
+    const episodes = episodeEntries(season);
+
+    // Active episode
+    const activeEpBox = document.querySelector('#dpEpisodes .dpEpBox.active');
+    const activeEp = activeEpBox ? activeEpBox.dataset.ep : null;
+
+    if(activeEp && activeEp !== "all"){
+      const found = episodes.find(([num]) => String(num) === String(activeEp));
+      if(found){
+        const url = downloadUrlOf(found[1]);
+        if(url) return { url, title: baseTitle + " S" + seasonNum + "E" + activeEp };
+      }
+    }
+
+    // প্রথম episode যেটাতে download link আছে
+    for(const [num, ep] of episodes){
+      const url = downloadUrlOf(ep);
+      if(url) return { url, title: baseTitle + " S" + seasonNum + "E" + num };
+    }
+
+    // Season level
+    const seasonUrl = downloadUrlOf(season);
+    if(seasonUrl) return { url: seasonUrl, title: baseTitle + " Season " + seasonNum };
+  }
+
+  // Movie / overall item level
+  const itemUrl = downloadUrlOf(item);
+  if(itemUrl) return { url: itemUrl, title: baseTitle };
+
+  // Fallback: streaming URL কে download link হিসেবে দেব
+  const fallbackVideoUrl = videoUrlOf(item);
+  if(fallbackVideoUrl) return { url: fallbackVideoUrl, title: baseTitle };
+
+  return null;
+}
+
+function triggerDirectDownload(url, title){
+  if(!url) return false;
+
+  const safeName = String(title || "video")
+    .replace(/[^\w\s\-\.]/g, "_")
+    .replace(/\s+/g, "_")
+    .slice(0, 80) || "video";
+
+  const isSameOrigin = (() => {
+    try {
+      const u = new URL(url, location.href);
+      return u.origin === location.origin;
+    } catch(e){ return false; }
+  })();
+
+  try {
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = safeName;
+    a.rel = "noopener noreferrer";
+    if(!isSameOrigin) a.target = "_blank";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { try { document.body.removeChild(a); } catch(e){} }, 350);
+    return true;
+  } catch(err){
+    console.error("Download failed:", err);
+    try { window.open(url, "_blank", "noopener"); } catch(e){}
+    return true;
+  }
+}
+
+function downloadCurrentItem(){
+  const item = currentDetail.item;
+  if(!item){ return; }
+
+  const target = getCurrentDownloadTarget();
+
+  if(!target || !target.url){
+    haptic();
+    toast("এই কনটেন্টে download link নেই");
+    return;
+  }
+
+  haptic(15);
+
+  // DB তে save করি
+  if(state.user){
+    const safeKey = (currentDetail.key || "item")
+      .replace(/[.#$[\]/]/g, '_') + "_" + Date.now();
+    db.ref("users/" + state.user.uid + "/downloads/" + safeKey).set({
+      title: target.title,
+      url: target.url,
+      poster: poster(item),
+      contentKey: currentDetail.key,
+      downloadedAt: firebase.database.ServerValue.TIMESTAMP
+    }).catch(()=>{});
+  }
+
+  triggerDirectDownload(target.url, target.title);
+  toast("Download শুরু হচ্ছে ✓");
 }
 
 const ICONS = {
@@ -1501,7 +1703,6 @@ function showAuth(mode){
   $("app").classList.add("hidden");
   $("authError").classList.add("hidden");
   resetPasswordField();
-  updateBackground("https://picsum.photos/seed/shanfilx-auth-bg/1600/900");
 
   if(mode === "login"){
     $("authTitle").textContent = "Welcome Back";
@@ -1597,7 +1798,8 @@ async function loadUserData(){
       db.ref("users/" + state.user.uid).once("value"),
       db.ref("users/" + state.user.uid + "/myList").once("value"),
       db.ref("users/" + state.user.uid + "/watchHistory").once("value"),
-      db.ref("users/" + state.user.uid + "/settings").once("value")
+      db.ref("users/" + state.user.uid + "/settings").once("value"),
+      db.ref("users/" + state.user.uid + "/downloads").once("value")
     ]);
 
     state.content = {
@@ -1610,6 +1812,7 @@ async function loadUserData(){
     state.profile = results[4].val() || { name: state.user.displayName || "User", email: state.user.email };
     state.myList  = results[5].val() || {};
     state.history = results[6].val() || {};
+    state.downloads = results[8].val() || {};
 
     const savedSettings = results[7].val() || {};
     state.settings = Object.assign({}, state.settings, savedSettings);
@@ -1676,8 +1879,6 @@ function renderHome(){
   if(state.heroIndex >= heroes.length) state.heroIndex = 0;
 
   const current = heroes[state.heroIndex];
-  if(current && window.requestIdleCallback) requestIdleCallback(() => updateBackground(backdrop(current)));
-  else if(current) updateBackground(backdrop(current));
 
   let heroSlides = "";
   heroes.forEach((item,index) => {
@@ -1742,8 +1943,6 @@ function renderHome(){
 
 function renderCollection(type, title){
   const items = published(type);
-  if(items.length && window.requestIdleCallback) requestIdleCallback(() => updateBackground(backdrop(items[0])));
-  else if(items.length) updateBackground(backdrop(items[0]));
   $("main").innerHTML = `
     <div class="page">
       <h1 class="pageTitle">${esc(title)}</h1>
@@ -1754,8 +1953,6 @@ function renderCollection(type, title){
 
 function renderMyList(){
   const items = allContent().filter(item => state.myList[item.type + ":" + item.id]);
-  if(items.length && window.requestIdleCallback) requestIdleCallback(() => updateBackground(backdrop(items[0])));
-  else if(items.length) updateBackground(backdrop(items[0]));
   $("main").innerHTML = `
     <div class="page">
       <h1 class="pageTitle">My List</h1>
@@ -1800,7 +1997,7 @@ function renderProfile(){
     return;
   }
 
-  const photo = state.profile?.photo || "https://placehold.co/150x150/171b26/ffffff?text=U";
+  const photo = state.profile?.photo || "https://placehold.co/150x150/070B1A/F8FAFC?text=U";
   const name = state.profile?.name || "User";
   const email = state.profile?.email || state.user.email;
 
@@ -1875,7 +2072,7 @@ function renderProfileSubPage(page){
 }
 
 function renderProfileEdit(){
-  const photo = state.profile?.photo || "https://placehold.co/150x150/171b26/ffffff?text=U";
+  const photo = state.profile?.photo || "https://placehold.co/150x150/070B1A/F8FAFC?text=U";
   const name = state.profile?.name || "User";
   const email = state.profile?.email || state.user.email;
 
@@ -1922,42 +2119,61 @@ function renderProfileEdit(){
   fileInput.onchange = async (e) => {
     const file = e.target.files && e.target.files[0];
     if(!file) return;
-    if(!file.type.startsWith("image/")){ toast("Please select an image file"); fileInput.value = ""; return; }
-    if(file.size > 5 * 1024 * 1024){ toast("Image must be under 5MB"); fileInput.value = ""; return; }
 
-    const localReader = new FileReader();
-    localReader.onload = (ev) => { previewImg.src = ev.target.result; };
-    localReader.readAsDataURL(file);
+    if(!file.type.startsWith("image/")){
+      toast("Please select an image file");
+      fileInput.value = "";
+      return;
+    }
+    if(file.size > 10 * 1024 * 1024){
+      toast("Image must be under 10MB");
+      fileInput.value = "";
+      return;
+    }
 
     changeBtn.disabled = true;
     changeBtn.textContent = "Preparing...";
 
     try {
-      const ext = (file.name.split(".").pop() || "jpg").toLowerCase();
-      const path = `avatars/${state.user.uid}/${Date.now()}.${ext}`;
-      const storageRef = storage.ref(path);
-      const uploadTask = storageRef.put(file);
+      const compressedDataUrl = await compressImage(file, 400, 0.85);
+      previewImg.src = compressedDataUrl;
+      state._pendingPhoto = compressedDataUrl;
 
-      uploadTask.on('state_changed', (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        changeBtn.textContent = `Uploading ${Math.round(progress)}%`;
-      });
+      changeBtn.textContent = "Uploading...";
 
-      const snapshot = await uploadTask;
-      const downloadURL = await snapshot.ref.getDownloadURL();
+      try {
+        const ext = "jpg";
+        const path = `avatars/${state.user.uid}/${Date.now()}.${ext}`;
+        const storageRef = storage.ref(path);
+        const blob = dataUrlToBlob(compressedDataUrl);
 
-      state._pendingPhoto = downloadURL;
-      previewImg.src = downloadURL;
-      toast("Photo selected ✓ Tap Save Changes");
-    } catch(error){
-      console.error("Upload failed:", error);
-      const fallbackReader = new FileReader();
-      fallbackReader.onload = (ev) => {
-        state._pendingPhoto = ev.target.result;
-        previewImg.src = ev.target.result;
-      };
-      fallbackReader.readAsDataURL(file);
-      toast("Server upload failed. Saved locally.");
+        const uploadTask = storageRef.put(blob, { contentType: "image/jpeg" });
+
+        uploadTask.on("state_changed", (snapshot) => {
+          const total = snapshot.totalBytes || 1;
+          const progress = (snapshot.bytesTransferred / total) * 100;
+          changeBtn.textContent = `Uploading ${Math.round(progress)}%`;
+        });
+
+        const timeout = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Upload timeout")), 12000)
+        );
+
+        const snapshot = await Promise.race([uploadTask, timeout]);
+        const downloadURL = await snapshot.ref.getDownloadURL();
+
+        state._pendingPhoto = downloadURL;
+        previewImg.src = downloadURL;
+        toast("Photo ready ✓ Tap Save Changes");
+      } catch (storageErr){
+        console.warn("Storage upload failed, using base64:", storageErr);
+        state._pendingPhoto = compressedDataUrl;
+        previewImg.src = compressedDataUrl;
+        toast("Photo ready ✓ (local) Tap Save Changes");
+      }
+    } catch (err){
+      console.error("Image processing failed:", err);
+      toast("Could not process image");
     } finally {
       changeBtn.disabled = false;
       changeBtn.textContent = "Change Photo";
@@ -1973,16 +2189,24 @@ function renderProfileEdit(){
 
     if(!newName){ toast("Name can't be empty"); return; }
 
+    const btn = $("saveProfileBtn");
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = "Saving...";
+
     try{
       const update = { name:newName, bio:newBio, photo:newPhoto };
       await db.ref("users/" + state.user.uid).update(update);
       state.profile = Object.assign({}, state.profile, update);
       delete state._pendingPhoto;
       toast("Profile updated ✓");
-      setTimeout(() => { state.profileSubPage = null; renderProfile(); }, 300);
+      setTimeout(() => { state.profileSubPage = null; renderProfile(); }, 400);
     } catch(e){
       console.error(e);
-      toast("Update failed");
+      toast("Update failed: " + (e.message || ""));
+    } finally {
+      btn.disabled = false;
+      btn.textContent = originalText;
     }
   };
 }
@@ -2027,13 +2251,13 @@ function renderProfileHistory(){
     const percent = val.duration ? Math.min(100, val.progress / val.duration * 100) : 0;
     return `
       <div class="settingItem" style="align-items:center">
-        <img src="${esc(poster(item))}" style="width:46px;height:66px;border-radius:8px;object-fit:cover;flex:0 0 auto;border:1px solid rgba(255,255,255,.12)" onerror="this.src='${APP.PLACEHOLDER}'">
+        <img src="${esc(poster(item))}" style="width:46px;height:66px;border-radius:8px;object-fit:cover;flex:0 0 auto;border:1px solid var(--border)" onerror="this.src='${APP.PLACEHOLDER}'">
         <div class="settingLabel">
           <div style="font-weight:700;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(item.title)}</div>
           <small>${esc(item.year || "")} · Watched ${formatDate(val.updatedAt)}</small>
           <div class="progress" style="margin-top:6px;max-width:160px"><span style="width:${percent}%"></span></div>
         </div>
-        <button class="menuChevron" data-history-play="${esc(key)}" style="background:none;border:0;color:var(--accent2);padding:8px">${ICONS.play}</button>
+        <button class="menuChevron" data-history-play="${esc(key)}" style="background:none;border:0;color:var(--accent3);padding:8px">${ICONS.play}</button>
       </div>
     `;
   }).filter(Boolean).join("");
@@ -2075,6 +2299,21 @@ function renderProfileHistory(){
 
 function renderProfileDownloads(){
   const s = state.settings;
+  const dlEntries = Object.entries(state.downloads || {})
+    .filter(([,v]) => v && v.url)
+    .sort((a,b) => (b[1].downloadedAt || 0) - (a[1].downloadedAt || 0));
+
+  const dlList = dlEntries.map(([id, item]) => `
+    <div class="settingItem" style="align-items:center">
+      <img src="${esc(item.poster || APP.PLACEHOLDER)}" style="width:46px;height:66px;border-radius:8px;object-fit:cover;flex:0 0 auto;border:1px solid var(--border)" onerror="this.src='${APP.PLACEHOLDER}'">
+      <div class="settingLabel">
+        <div style="font-weight:700;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(item.title || "Video")}</div>
+        <small>${item.downloadedAt ? "Downloaded " + formatDate(item.downloadedAt) : ""}</small>
+      </div>
+      <button class="menuChevron" data-redownload="${esc(id)}" style="background:none;border:0;color:var(--accent3);padding:8px" title="Download again">${ICONS.download}</button>
+    </div>
+  `).join("");
+
   $("main").innerHTML = `
     <div class="page">
       ${subPageHeader("Downloads")}
@@ -2102,13 +2341,26 @@ function renderProfileDownloads(){
 
       <div class="settingGroup">
         <div class="settingGroupTitle">Downloaded Videos</div>
-        <div class="emptySmall" style="padding:40px 20px">No downloaded videos yet.<br>Videos you download will appear here.</div>
+        ${dlEntries.length
+          ? dlList
+          : `<div class="emptySmall" style="padding:40px 20px">No downloaded videos yet.<br>Videos you download will appear here.</div>`}
       </div>
     </div>
   `;
 
   const sel = $("dlQuality");
   if(sel) sel.onchange = () => { haptic(); saveSetting("downloadQuality", sel.value); };
+
+  document.querySelectorAll("[data-redownload]").forEach(btn => {
+    btn.addEventListener("pointerup", (e) => {
+      e.stopPropagation();
+      haptic();
+      const entry = state.downloads[btn.dataset.redownload];
+      if(!entry || !entry.url){ toast("Link not available"); return; }
+      triggerDirectDownload(entry.url, entry.title);
+      toast("Download শুরু হয়েছে ✓");
+    }, { passive:true });
+  });
 }
 
 function renderProfileNotifications(){
@@ -2525,9 +2777,6 @@ function openDetail(key){
     currentDetail.selectedSeason = seasonKeys[0] || "1";
   } else { currentDetail.selectedSeason = null; }
 
-  if(window.requestIdleCallback) requestIdleCallback(() => updateBackground(backdrop(item)));
-  else updateBackground(backdrop(item));
-
   const dp = $("detailPage");
   dp.classList.remove("closing", "hidden");
   renderDetailPage();
@@ -2591,7 +2840,7 @@ function renderDetailPage(){
         <button class="dpInfoBtn ripple" id="dpInfoBtn">INFO</button>
       </h1>
       <div class="dpMetaRow">${metaChips.join("")}</div>
-      <p class="dpDescription" style="color:rgba(230,235,245,.85);line-height:1.6;font-size:13px;margin:0 0 4px;">
+      <p class="dpDescription" style="color:rgba(226,232,245,.85);line-height:1.6;font-size:13px;margin:0 0 4px;">
         ${esc(item.description || "No description available.")}
       </p>
     </div>
@@ -2671,7 +2920,7 @@ function bindDetailEvents(){
       else { await navigator.clipboard.writeText(url); toast("Share link copied"); }
     } catch(e){}
   });
-  fastBind(dp.querySelector("#dpDownload"),     () => { haptic(); toast("Download started (demo)"); });
+  fastBind(dp.querySelector("#dpDownload"),     () => { haptic(); downloadCurrentItem(); });
   fastBind(dp.querySelector("#dpViewDownload"), () => { haptic(); state.profileSubPage = "downloads"; render("profile"); });
 
   const langSelect = dp.querySelector("#dpLangSelect");
@@ -2745,9 +2994,6 @@ function playCurrentDetailInline(){
   playMediaInline(key, url, item);
 }
 
-/* =====================================================
-   NETFLIX-STYLE INLINE PLAYER
-===================================================== */
 const AICONS = {
   play:      '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>',
   pause:     '<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>',
@@ -2803,7 +3049,6 @@ function buildAndroidVideoPlayer(shell, url, key, meta, bigPlay, inlineContainer
   video.setAttribute('webkit-playsinline', '');
   shell.appendChild(video);
 
-  /* ========= LOADING POSTER ========= */
   const item = currentDetail.item || {};
   const posterUrl = item.backdrop || item.poster || meta.poster || meta.backdrop || '';
   const loaderEl = document.createElement('div');
@@ -2815,7 +3060,6 @@ function buildAndroidVideoPlayer(shell, url, key, meta, bigPlay, inlineContainer
   shell.appendChild(loaderEl);
 
   const hideLoader = () => loaderEl.classList.add('hidden');
-  // safety fallback
   const loaderFallback = setTimeout(hideLoader, 15000);
 
   const tryPlay = () => {
@@ -3045,13 +3289,11 @@ function buildAndroidVideoPlayer(shell, url, key, meta, bigPlay, inlineContainer
     showOverlay();
   }, { once: true });
 
-  /* ========= HIDE LOADER WHEN ACTUALLY PLAYING ========= */
   video.addEventListener('playing', () => {
     clearTimeout(loaderFallback);
     hideLoader();
   }, { once: true });
   video.addEventListener('play', () => {
-    // safety — some browsers fire play before frame appears
     setTimeout(hideLoader, 250);
   }, { once: true });
 
@@ -3094,7 +3336,6 @@ function buildAndroidVideoPlayer(shell, url, key, meta, bigPlay, inlineContainer
 }
 
 function buildAndroidIframePlayer(shell, url, key, meta, bigPlay, inlineContainer) {
-  /* ===== LOADING POSTER ===== */
   const item = currentDetail.item || {};
   const posterUrl = item.backdrop || item.poster || meta.poster || meta.backdrop || '';
   const loaderEl = document.createElement('div');
@@ -3115,7 +3356,6 @@ function buildAndroidIframePlayer(shell, url, key, meta, bigPlay, inlineContaine
   iframe.addEventListener('load', () => {
     setTimeout(() => loaderEl.classList.add('hidden'), 400);
   });
-  // safety fallback for iframes
   setTimeout(() => loaderEl.classList.add('hidden'), 6000);
   shell.appendChild(iframe);
 
