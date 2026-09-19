@@ -324,7 +324,7 @@ main{padding-bottom:calc(70px + var(--safe-bottom));position:relative;z-index:2;
   text-shadow:0 2px 8px rgba(0,0,0,.85);
 }
 
-/* ✅ Video Banner (Direct Iframe Holder) */
+/* ✅ MODIFIED: Video Banner now only holds the iframe */
 .dv-video-banner{
   position:relative;
   width:100%;
@@ -336,13 +336,13 @@ main{padding-bottom:calc(70px + var(--safe-bottom));position:relative;z-index:2;
   margin-top:0;
 }
 
-/* ✅ Iframe is the only element inside */
+/* ✅ MODIFIED: Iframe is now the ONLY element, always visible */
 #dvIframePlayer{
   position:absolute;inset:0;width:100%;height:100%;
   background:#000;border:none;display:block;z-index:2;
 }
 
-.dv-content{padding:20px;max-width:1200px;margin:0 auto;width:100%;}
+.dv-content{padding:20px;}
 .dv-main-title{
   font-size:clamp(1.25rem,4vw,1.8rem);font-weight:900;margin-bottom:8px;
   display:flex;align-items:center;gap:10px;flex-wrap:wrap;word-break:break-word;
@@ -544,13 +544,13 @@ footer{
   padding:40px calc(5% + var(--safe-right)) calc(40px + var(--safe-bottom)) calc(5% + var(--safe-left));
   margin-top:70px;background:#080c11;
 }
-.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;max-width:1200px;margin:0 auto;}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;}
 footer h3{color:var(--primary);margin-bottom:12px;font-size:1.1rem;}
 footer p,footer button{color:var(--muted);line-height:1.8;font-size:.9rem;}
 footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
 .copy{
   margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.07);
-  color:#66737f;font-size:.8rem;text-align:center;max-width:1200px;margin-left:auto;margin-right:auto;
+  color:#66737f;font-size:.8rem;text-align:center;
 }
 
 /* ============================================================
@@ -568,10 +568,8 @@ footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
 .toast.show{transform:translateY(0);opacity:1;}
 
 /* ============================================================
-   RESPONSIVE DESIGN (Mobile, Tablet, Desktop)
+   RESPONSIVE
    ============================================================ */
-
-/* Small Phones */
 @media (max-width:360px){
   .logo{font-size:0.92rem;}
   .cards{grid-template-columns:repeat(3,1fr);gap:5px;}
@@ -582,7 +580,6 @@ footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
   .hero{min-height:340px;max-height:420px;}
 }
 
-/* Standard Phones (Portrait) */
 @media (max-width:480px){
   .navbar{padding:var(--safe-top) calc(12px + var(--safe-right)) 0 calc(12px + var(--safe-left));gap:8px;}
   .logo{font-size:1rem;}
@@ -617,7 +614,6 @@ footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
   .dv-back{width:38px;height:38px;font-size:1.3rem;}
 }
 
-/* Large Phones / Small Tablets (Portrait) */
 @media (min-width:481px) and (max-width:600px){
   .navbar{padding:var(--safe-top) calc(15px + var(--safe-right)) 0 calc(15px + var(--safe-left));gap:10px;}
   .logo{font-size:1.1rem;}
@@ -626,7 +622,6 @@ footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
   .genre-grid{grid-template-columns:repeat(3,1fr);gap:10px;}
 }
 
-/* Tablets (Portrait) */
 @media (min-width:601px) and (max-width:768px){
   .cards{grid-template-columns:repeat(4,1fr);gap:10px;}
   .genre-grid{grid-template-columns:repeat(4,1fr);gap:12px;}
@@ -636,7 +631,6 @@ footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
   .search-box{width:auto;flex:1;min-width:0;}
 }
 
-/* Tablets (Landscape) & Small Laptops */
 @media (min-width:769px) and (max-width:992px){
   .cards{grid-template-columns:repeat(5,1fr);gap:12px;}
   .genre-grid{grid-template-columns:repeat(4,1fr);gap:14px;}
@@ -644,51 +638,35 @@ footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
   .mobile-menu{display:flex;}
   .nav-links.open{display:flex;}
   .search-box{width:260px;flex:0 1 260px;}
+  .dv-content{padding:25px 6%;}
   .hero{min-height:460px;max-height:540px;}
 }
 
-/* Desktop & Large Screens */
-@media (min-width:993px){
-  .cards{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px;}
-  .genre-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:15px;}
+@media (min-width:993px) and (max-width:1200px){
+  .cards{grid-template-columns:repeat(6,1fr);gap:14px;}
+  .genre-grid{grid-template-columns:repeat(6,1fr);gap:15px;}
   .nav-links{display:flex;}
   .mobile-menu{display:none;}
-  
-  /* Video Player sizing for Desktop (doesn't stretch full width) */
-  .dv-video-banner {
-    max-width: 1100px;
-    margin: 30px auto 0 auto;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
-    aspect-ratio: 16/9;
-  }
-  .dv-header {
-    max-width: 1100px;
-    left: 0; right: 0; margin: 0 auto;
-    padding-left: 10px;
-  }
-  
   .dv-content{padding:30px 8%;}
   .hero{min-height:500px;max-height:580px;}
 }
 
-/* Big Desktops */
-@media (min-width:1201px){
-  .cards{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px;}
-  .genre-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px;}
+@media (min-width:1201px) and (max-width:1440px){
+  .cards{grid-template-columns:repeat(7,1fr);gap:18px;}
+  .genre-grid{grid-template-columns:repeat(6,1fr);gap:16px;}
+  .dv-content{padding:30px 10%;}
   .hero{min-height:520px;max-height:600px;}
 }
 
 @media (min-width:1441px){
-  .cards{grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:20px;}
-  .genre-grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:18px;}
+  .cards{grid-template-columns:repeat(8,1fr);gap:20px;}
+  .genre-grid{grid-template-columns:repeat(8,1fr);gap:18px;}
   .hero-content{max-width:640px;}
-  .dv-content{padding:40px 10%;}
-  .section{max-width:1600px;margin-left:auto;margin-right:auto;}
+  .dv-content{padding:40px 12%;}
+  .section{max-width:1800px;margin-left:auto;margin-right:auto;}
   .hero{min-height:560px;max-height:620px;}
 }
 
-/* Mobile Menu Overlay */
 @media (max-width:992px){
   .nav-links{
     display:none;position:fixed;
@@ -707,19 +685,15 @@ footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
   .mobile-menu{display:flex;}
 }
 
-/* Landscape Mode on Phones (Adjust Video Player Height) */
 @media (max-height:500px) and (orientation:landscape){
   .hero{min-height:auto;max-height:none;padding-top:calc(var(--navbar-h) + var(--safe-top) + 20px);padding-bottom:25px;}
   .hero h1{font-size:1.4rem;}
-  .dv-video-banner { max-height: 80vh; } /* Let video take up most of the screen */
 }
 
-/* Touch Device Optimizations */
 @media (hover:none) and (pointer:coarse){
   .card:hover{transform:none;}
 }
 
-/* Reduced Motion */
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{
     animation-duration:0.001ms !important;
@@ -838,7 +812,7 @@ footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
 
 <!-- DETAILS VIEW -->
 <div class="details-view" id="detailsView">
-  <!-- Direct Iframe Holder -->
+  <!-- ✅ MODIFIED: Removed Poster, Loader, and Play button. Only Iframe remains -->
   <div class="dv-video-banner">
     <iframe id="dvIframePlayer"
             allowfullscreen
@@ -1399,6 +1373,7 @@ function openDetails(id){
   const dvResources = document.getElementById("dvResources");
   const dvEpisodes = document.getElementById("dvEpisodes");
   const dvSeasonSelect = document.getElementById("dvSeasonSelect");
+  const iframe = document.getElementById("dvIframePlayer");
 
   currentSeasons = buildSeasons(item);
 
@@ -1481,20 +1456,23 @@ function selectEpisode(idx){
   loadVideoDirectly(); // Auto load selected episode
 }
 
-// ✅ Direct Video Loader into Iframe
+// ✅ NEW FUNCTION: Directly load the video into the iframe
 function loadVideoDirectly(){
   if(!currentContent){ return; }
 
   let url = "";
 
+  // 1️⃣ Episode URL (highest priority for series)
   const season = currentSeasons[currentSeasonIdx];
   if(season && season.episodes && season.episodes.length){
     const ep = season.episodes[currentEpIdx] || season.episodes[0];
     if(ep && ep.url) url = ep.url;
   }
 
+  // 2️⃣ Fallback: extract from whole object
   if(!url) url = normalizeVideoUrl(extractVideoUrl(currentContent));
 
+  // 3️⃣ Fallback: direct fields
   if(!url){
     const direct = currentContent.video || currentContent.videoUrl ||
                    currentContent.url || currentContent.link ||
@@ -1506,7 +1484,7 @@ function loadVideoDirectly(){
   if(!iframe) return;
 
   if(url){
-    iframe.src = url; 
+    iframe.src = url; // Set the Multicloudlinks URL directly here
   } else {
     iframe.src = "about:blank";
     showToast("Video URL missing for this title.");
@@ -1711,7 +1689,7 @@ document.addEventListener("keydown", e => {
    ============================================================ */
 showSkeleton();
 fetchAllData();
-console.log("✅ SHANFILX ready — Fully Responsive for Mobile, Tablet & Desktop");
+console.log("✅ SHANFILX ready — Multicloudlinks iframe direct load enabled");
 </script>
 
 </body>
