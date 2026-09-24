@@ -1094,30 +1094,36 @@ function normalizeVideoUrl(raw){
   return s;
 }
 
+/* ============================================================
+   ✅ EPISODE BUILDER — now also keeps each episode's download links
+   ============================================================ */
 function buildEpisodes(raw){
   const list = [];
   if(!raw) return list;
+
+  const addEp = (label, node) => {
+    let url = "";
+    let downloads = [];
+
+    if(node && typeof node === "object" && !Array.isArray(node)){
+      url = normalizeVideoUrl(extractVideoUrl(node));
+      downloads = extractDownloadLinks(node, { deep: true });
+    } else if(typeof node === "string" && isUrlLike(node)){
+      url = normalizeVideoUrl(node);
+    }
+
+    list.push({ name: String(label), url: url, downloads: downloads });
+  };
+
   if(Array.isArray(raw)){
-    raw.forEach((e, i) => {
-      if(e && typeof e === "object"){
-        list.push({ name: String(i+1), url: normalizeVideoUrl(extractVideoUrl(e)) });
-      } else if(typeof e === "string" && isUrlLike(e)){
-        list.push({ name: String(i+1), url: normalizeVideoUrl(e) });
-      }
-    });
+    raw.forEach((e, i) => addEp(i + 1, e));
     return list;
   }
+
   if(typeof raw === "object"){
     Object.keys(raw).forEach(k => {
-      const v = raw[k];
-      let num = parseInt(k, 10);
-      if(isNaN(num)) num = list.length + 1;
-      if(v && typeof v === "object"){
-        const url = normalizeVideoUrl(extractVideoUrl(v));
-        if(url) list.push({ name: String(num), url: url });
-      } else if(typeof v === "string" && isUrlLike(v)){
-        list.push({ name: String(num), url: normalizeVideoUrl(v) });
-      }
+      const num = parseInt(k, 10);
+      addEp(isNaN(num) ? k : num, raw[k]);
     });
   }
   return list;
@@ -1375,76 +1381,240 @@ document.addEventListener('click', () => {
 })();
 
 /* ============================================================
-   DOWNLOAD
+   ✅ DOWNLOAD ENGINE — works for Movies + TV Series + K-Drama + Anime
+   ------------------------------------------------------------
+   Data shape supported (any one of these):
+     movie:  { "download": "https://..." }
+     movie:  { "download": { "720p":"url", "1080p":"url" } }
+     movie:  { "downloadUrl": "720p|url, 1080p|url" }
+     series: { "seasons": { "Season 1": { "1": { "video":"...", "download":"..." } } } }
+     series: { "episodes": { "1": { "video":"...", "download":"..." } } }
+     series: { "episodes": { "1": "videoUrl" }, "download": { "1":"dlUrl", "2":"dlUrl" } }
    ============================================================ */
+
+/* ---- low-level helpers ---- */
+function looksLikeDownloadUrl(v){
+  if(typeof v !== "string") return false;
+  const s = v.trim();
+  if(!s) return false;
+  if(/^(https?:\/\/|magnet:\?|www\.)/i.test(s)) return true;
+  if(/^\/\//.test(s)) return true;
+  if(/<iframe/i.test(s)) return true;
+  return false;
+}
+function isNumericKey(k){ return /^\d+$/.test(String(k).trim()); }
+function prettyLabel(k){
+  const s = String(k == null ? "" : k).trim();
+  if(!s) return "HD";
+  if(/^(download|dl|downloadlink|downloadurl|downloads)$/i.test(s.replace(/[\s_\-\.]/g,""))) return "Download";
+  if(isNumericKey(s)) return "Episode " + s;
+  return s;
+}
+
+/* "720p|https://...,1080p|https://..."  →  [{quality,url}, ...] */
+function parseDownloadString(str){
+  const out = [];
+  if(str == null) return out;
+  let s = String(str).trim();
+  if(!s) return out;
+
+  const ifr = s.match(/<iframe[^>]*src=["']([^"']+)["']/i);
+  if(ifr) s = ifr[1];
+
+  s = s.replace(/&amp;/g, "&").replace(/\r/g, "\n");
+
+  s.split(/[\n,]+/).map(x => x.trim()).filter(Boolean).forEach(p => {
+    let quality = "", url = "";
+
+    if(/^(https?:\/\/|magnet:|www\.|\/\/)/i.test(p)){
+      url = p;
+    } else {
+      const m = p.match(/^(.+?)\s*(?:\||=>|:|=|–|—|-)\s*((?:https?:\/\/|magnet:|www\.|\/\/).*)$/i);
+      if(m){ quality = m[1].trim(); url = m[2].trim(); }
+      else {
+        const i = p.indexOf("|");
+        if(i > -1){ quality = p.slice(0, i).trim(); url = p.slice(i + 1).trim(); }
+      }
+    }
+    if(url) out.push({ quality: quality, url: url });
+  });
+  return out;
+}
+
+/* ---- recursive download-link extractor ---- */
+const DL_KEY_RE = /download|dl_?link|dl_?url|^dl$|_dl$|^dl_|dlink|get_?link/i;
+
+function extractDownloadLinks(node, opts, depth){
+  opts = opts || {};
+  depth = depth || 0;
+  if(node == null || depth > 6) return [];
+
+  if(typeof node === "string") return parseDownloadString(node);
+  if(typeof node !== "object") return [];
+
+  if(Array.isArray(node)){
+    let out = [];
+    node.forEach((v, i) => {
+      const sub = extractDownloadLinks(v, { deep: true, epNum: opts.epNum }, depth + 1);
+      sub.forEach(s => { if(!s.quality) s.quality = "Link " + (i + 1); out.push(s); });
+    });
+    return out;
+  }
+
+  const keys = Object.keys(node);
+
+  /* 1) explicit download keys win */
+  let out = [];
+  keys.forEach(k => {
+    if(DL_KEY_RE.test(k)){
+      const sub = extractDownloadLinks(node[k], { deep: true, epNum: opts.epNum }, depth + 1);
+      sub.forEach(s => { if(!s.quality) s.quality = prettyLabel(k); out.push(s); });
+    }
+  });
+  if(out.length) return out;
+
+  /* 2) { "720p":"url" }  or  { "1":"url", "2":"url" } map */
+  const urlKeys = keys.filter(k => typeof node[k] === "string" && looksLikeDownloadUrl(node[k]));
+  const objKeys = keys.filter(k => node[k] && typeof node[k] === "object");
+
+  if(urlKeys.length && !objKeys.length){
+    let use = urlKeys;
+    // pick only current episode when keys are episode numbers
+    if(opts.epNum && use.length > 1 && use.every(isNumericKey)){
+      const want = String(parseInt(opts.epNum, 10));
+      const hit = use.filter(k => String(parseInt(k, 10)) === want);
+      if(hit.length) use = hit;
+    }
+    use.forEach(k => {
+      parseDownloadString(node[k]).forEach(s => {
+        s.quality = s.quality || prettyLabel(k);
+        out.push(s);
+      });
+    });
+    return out;
+  }
+
+  /* 3) deep scan (season / episode containers) */
+  if(opts.deep){
+    objKeys.forEach(k => {
+      out = out.concat(extractDownloadLinks(node[k], opts, depth + 1));
+    });
+  }
+  return out;
+}
+
+function dedupeDownloadLinks(links){
+  const seen = Object.create(null), out = [];
+  (links || []).forEach(l => {
+    if(!l || !l.url) return;
+    const u = String(l.url).trim();
+    if(!u || seen[u]) return;
+    seen[u] = 1;
+    out.push({ quality: l.quality || "HD", url: u });
+  });
+  return out;
+}
+
+/* ---- current episode / movie download links ---- */
+function getCurrentDownloadLinks(){
+  if(!currentContent) return [];
+  let links = [];
+
+  /* A) current episode's own download links */
+  if(isSeriesType(currentContent) && currentSeasons.length){
+    const season = currentSeasons[currentSeasonIdx];
+    if(season && season.episodes && season.episodes.length){
+      const ep = season.episodes[currentEpIdx] || season.episodes[0];
+      if(ep && ep.downloads && ep.downloads.length) links = ep.downloads.slice();
+    }
+  }
+
+  /* B) fallback → title-level download links (episode-numbered maps supported) */
+  if(!links.length){
+    links = extractDownloadLinks(currentContent, { deep: false, epNum: currentEpIdx + 1 });
+  }
+
+  return dedupeDownloadLinks(links);
+}
+
+function buildDownloadFileName(link){
+  let name = currentContent ? getTitle(currentContent) : "video";
+  if(currentContent && isSeriesType(currentContent)){
+    const season = currentSeasons[currentSeasonIdx];
+    if(season && season.name) name += " " + season.name;
+    name += " Episode " + (currentEpIdx + 1);
+  }
+  if(link && link.quality && !/^episode\b/i.test(link.quality)) name += " " + link.quality;
+  return name;
+}
+
+/* ---- download actions ---- */
 let currentDownloadLinks = [];
 
-function getDownloadLinks(item){
-  if(!item) return [];
-  const raw = item.downloadUrl || item.download || item.downloadLink || item.dl || item.downloads || "";
-  if(!raw) return [];
-  if(typeof raw === "object" && !Array.isArray(raw)){
-    return Object.keys(raw).map(k => ({ quality: k, url: String(raw[k]||"").trim() })).filter(x => x.url);
-  }
-  if(Array.isArray(raw)){
-    return raw.map((v,i) => {
-      if(v && typeof v === "object") return { quality: v.quality || v.label || `Link ${i+1}`, url: String(v.url || v.link || "").trim() };
-      return { quality: `Link ${i+1}`, url: String(v||"").trim() };
-    }).filter(x => x.url);
-  }
-  const str = String(raw).trim();
-  if(!str) return [];
-  if(str.includes("|")){
-    return str.split(",").map(part => {
-      const idx = part.indexOf("|");
-      if(idx === -1) return { quality: "HD", url: part.trim() };
-      return { quality: part.slice(0,idx).trim() || "HD", url: part.slice(idx+1).trim() };
-    }).filter(x => x.url);
-  }
-  return [{ quality: getQuality(item), url: str }];
-}
 function triggerDownload(url, title){
-  let u = String(url||"").trim();
+  let u = String(url || "").trim();
   if(!u) return;
   const gd = u.match(/drive\.google\.com\/file\/d\/([^/?#]+)/);
   if(gd) u = "https://drive.google.com/uc?export=download&id=" + gd[1];
+
   const a = document.createElement("a");
   a.href = u;
   a.target = "_blank";
   a.rel = "noopener noreferrer";
-  a.download = String(title||"video").replace(/[^\w\s\-]/g,"").trim() || "video";
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  a.download = String(title || "video").replace(/[^\w\s\-]/g, "").trim() || "video";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
   showToast("Download started...");
 }
+
 function downloadCurrent(){
   if(!currentContent) return;
-  const links = getDownloadLinks(currentContent);
-  if(!links.length){ showToast("Download link not available."); return; }
+  const links = getCurrentDownloadLinks();
+
+  if(!links.length){
+    showToast(isSeriesType(currentContent)
+      ? "No download link for this episode."
+      : "Download link not available.");
+    return;
+  }
   if(links.length > 1){ showDownloadOptions(); return; }
-  triggerDownload(links[0].url, getTitle(currentContent));
+  triggerDownload(links[0].url, buildDownloadFileName(links[0]));
 }
+
 function showDownloadOptions(){
   if(!currentContent) return;
-  currentDownloadLinks = getDownloadLinks(currentContent);
+  currentDownloadLinks = getCurrentDownloadLinks();
+
   const body = document.getElementById("downloadModalBody");
+
   if(!currentDownloadLinks.length){
-    body.innerHTML = '<div class="empty">No download links available.</div>';
+    body.innerHTML = '<div class="empty">No download links available for this '
+      + (isSeriesType(currentContent) ? 'episode' : 'title') + '.</div>';
   } else {
-    body.innerHTML = currentDownloadLinks.map((l,i) => `
+    const head = isSeriesType(currentContent)
+      ? `<div style="color:var(--muted);font-size:.8rem;margin-bottom:10px;">
+           ${escapeHtml(getTitle(currentContent))} — Episode ${currentEpIdx + 1}
+         </div>`
+      : "";
+
+    body.innerHTML = head + currentDownloadLinks.map((l, i) => `
       <div class="dl-row">
         <div class="dl-info">
           <div class="dl-quality">${escapeHtml(l.quality)}</div>
-          <div class="dl-url">${escapeHtml(l.url.slice(0,70))}${l.url.length>70?"…":""}</div>
+          <div class="dl-url">${escapeHtml(l.url.slice(0, 70))}${l.url.length > 70 ? "…" : ""}</div>
         </div>
         <button class="dl-btn" onclick="downloadFromModal(${i})">⬇ Download</button>
       </div>`).join("");
   }
+
   document.getElementById("downloadModal").classList.add("show");
 }
+
 function downloadFromModal(i){
   const l = currentDownloadLinks[i];
   if(!l) return;
-  triggerDownload(l.url, currentContent ? getTitle(currentContent) : "video");
+  triggerDownload(l.url, buildDownloadFileName(l));
   closeModal("downloadModal");
 }
 
