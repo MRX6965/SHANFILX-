@@ -151,8 +151,8 @@ main{padding-bottom:calc(70px + var(--safe-bottom));position:relative;z-index:2;
 }
 .view-all{color:var(--primary);font-size:clamp(0.8rem,2vw,0.9rem);padding:6px 4px;flex-shrink:0;white-space:nowrap;}
 
-/* POSTER GRID */
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;}
+/* POSTER GRID - ✅ CHANGED: Reduced minmax to make posters smaller */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:6px;}
 .card{
   position:relative;border-radius:8px;overflow:hidden;
   background:var(--card);border:1px solid rgba(255,255,255,.05);
@@ -163,12 +163,39 @@ main{padding-bottom:calc(70px + var(--safe-bottom));position:relative;z-index:2;
 .card:active{transform:scale(0.97);}
 .poster{aspect-ratio:2/3;background:#172330;position:relative;overflow:hidden;}
 .poster img{width:100%;height:100%;object-fit:cover;}
-.card-info{padding:8px 9px;}
-.card-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;font-size:0.8rem;line-height:1.3;}
-.card-meta{color:var(--muted);font-size:0.65rem;margin-top:4px;display:flex;gap:4px;flex-wrap:wrap;}
+
+/* ✅ NEW: Views Badge styling */
+.views-badge {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background: rgba(0, 0, 0, 0.78);
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 0.6rem;
+  font-weight: bold;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 2;
+  pointer-events: none;
+}
+.views-badge svg {
+  width: 10px;
+  height: 10px;
+  fill: currentColor;
+  opacity: 0.9;
+}
+
+.card-info{padding:6px 8px;} /* Slightly reduced padding */
+.card-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;font-size:0.75rem;line-height:1.3;} /* Reduced font size */
+.card-meta{color:var(--muted);font-size:0.6rem;margin-top:3px;display:flex;gap:3px;flex-wrap:wrap;} /* Reduced font size */
 .quality{
   position:absolute;top:6px;left:6px;background:rgba(0,0,0,.78);
-  padding:3px 5px;border-radius:3px;font-size:0.58rem;font-weight:bold;
+  padding:3px 5px;border-radius:3px;font-size:0.55rem;font-weight:bold;
   color:var(--primary);letter-spacing:.3px;
 }
 
@@ -194,7 +221,6 @@ main{padding-bottom:calc(70px + var(--safe-bottom));position:relative;z-index:2;
 }
 .details-view.active{display:flex;}
 
-/* ✅ FIXED HEADER — always visible, above video & content */
 .dv-header{
   position:fixed;
   top:0;left:0;right:0;
@@ -231,7 +257,6 @@ main{padding-bottom:calc(70px + var(--safe-bottom));position:relative;z-index:2;
   max-width:70%;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.85);
 }
 
-/* VIDEO BANNER */
 .dv-video-banner{
   position:relative;width:100%;aspect-ratio:16/9;
   background:#000;flex-shrink:0;
@@ -242,8 +267,6 @@ main{padding-bottom:calc(70px + var(--safe-bottom));position:relative;z-index:2;
   position:absolute;inset:0;width:100%;height:100%;
   background:#000;border:none;display:block;z-index:2;
 }
-
-/* FULLSCREEN (iframe native fullscreen — browser handles sizing) */
 #dvIframePlayer:fullscreen,
 #dvIframePlayer:-webkit-full-screen,
 #dvIframePlayer:-moz-full-screen,
@@ -251,7 +274,6 @@ main{padding-bottom:calc(70px + var(--safe-bottom));position:relative;z-index:2;
   width:100vw !important;
   height:100vh !important;
 }
-
 body.is-fullscreen{overflow:hidden !important;}
 
 .dv-content{padding:20px;}
@@ -337,7 +359,7 @@ body.is-fullscreen{overflow:hidden !important;}
 
 .dv-tabs{display:flex;gap:20px;border-bottom:1px solid var(--border);margin-bottom:18px;}
 .dv-tab{padding-bottom:12px;color:var(--primary);font-weight:bold;font-size:clamp(0.9rem,2.5vw,1rem);border-bottom:2px solid var(--primary);}
-.dv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:8px;}
+.dv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:6px;}
 
 /* MODALS */
 .modal{display:none;position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.9);align-items:center;justify-content:center;padding:15px;}
@@ -402,9 +424,9 @@ footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
    ============================================================ */
 @media (max-width:360px){
   .logo{font-size:0.92rem;}
-  .cards{grid-template-columns:repeat(3,1fr);gap:5px;}
-  .card-title{font-size:0.68rem;}
-  .card-meta{font-size:0.55rem;}
+  .cards{grid-template-columns:repeat(3,1fr);gap:4px;}
+  .card-title{font-size:0.65rem;}
+  .card-meta{font-size:0.5rem;}
   .dv-episodes{padding:10px;}
   .dv-ep{width:42px;height:42px;font-size:0.85rem;}
   .hero{min-height:340px;max-height:420px;}
@@ -419,17 +441,18 @@ footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
   .hero p{font-size:0.82rem;-webkit-line-clamp:2;}
   .hero-buttons{width:100%;}
   .primary-btn,.secondary-btn{flex:1;min-width:130px;padding:10px 14px;font-size:0.85rem;}
-  .cards{grid-template-columns:repeat(3,1fr);gap:6px;}
-  .card-info{padding:7px 8px;}
-  .card-title{font-size:0.72rem;}
-  .card-meta{font-size:0.58rem;gap:3px;}
-  .quality{font-size:0.52rem;padding:2px 4px;top:5px;left:5px;}
+  .cards{grid-template-columns:repeat(3,1fr);gap:5px;}
+  .card-info{padding:5px 6px;}
+  .card-title{font-size:0.68rem;}
+  .card-meta{font-size:0.55rem;gap:2px;}
+  .quality{font-size:0.5rem;padding:2px 4px;top:4px;left:4px;}
+  .views-badge{font-size:0.5rem;padding:2px 4px;bottom:4px;right:4px;}
   .genre-grid{grid-template-columns:repeat(3,1fr);gap:6px;}
   .genre{font-size:0.78rem;padding:12px 6px;}
   .section{margin-top:26px;}
   .section-title{font-size:1.1rem;}
   .dv-content{padding:15px;}
-  .dv-grid{grid-template-columns:repeat(3,1fr);gap:6px;}
+  .dv-grid{grid-template-columns:repeat(3,1fr);gap:5px;}
   .dv-resources{padding:12px;margin-bottom:14px;}
   .dv-lang-box{font-size:14px;padding:11px 12px;min-height:42px;}
   .dv-selects select{font-size:14px;padding:11px 34px 11px 12px;min-height:42px;}
@@ -443,11 +466,11 @@ footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
   .navbar{padding:var(--safe-top) calc(15px + var(--safe-right)) 0 calc(15px + var(--safe-left));gap:10px;}
   .logo{font-size:1.1rem;}
   .search-box{width:auto;flex:1;min-width:0;height:42px;}
-  .cards{grid-template-columns:repeat(4,1fr);gap:8px;}
+  .cards{grid-template-columns:repeat(4,1fr);gap:6px;}
   .genre-grid{grid-template-columns:repeat(3,1fr);gap:10px;}
 }
 @media (min-width:601px) and (max-width:768px){
-  .cards{grid-template-columns:repeat(4,1fr);gap:10px;}
+  .cards{grid-template-columns:repeat(5,1fr);gap:8px;}
   .genre-grid{grid-template-columns:repeat(4,1fr);gap:12px;}
   .nav-links{display:none;}
   .mobile-menu{display:flex;}
@@ -455,7 +478,7 @@ footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
   .search-box{width:auto;flex:1;min-width:0;}
 }
 @media (min-width:769px) and (max-width:992px){
-  .cards{grid-template-columns:repeat(5,1fr);gap:12px;}
+  .cards{grid-template-columns:repeat(6,1fr);gap:10px;}
   .genre-grid{grid-template-columns:repeat(4,1fr);gap:14px;}
   .nav-links{display:none;}
   .mobile-menu{display:flex;}
@@ -465,7 +488,7 @@ footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
   .hero{min-height:460px;max-height:540px;}
 }
 @media (min-width:993px) and (max-width:1200px){
-  .cards{grid-template-columns:repeat(6,1fr);gap:14px;}
+  .cards{grid-template-columns:repeat(7,1fr);gap:12px;}
   .genre-grid{grid-template-columns:repeat(6,1fr);gap:15px;}
   .nav-links{display:flex;}
   .mobile-menu{display:none;}
@@ -473,13 +496,13 @@ footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
   .hero{min-height:500px;max-height:580px;}
 }
 @media (min-width:1201px) and (max-width:1440px){
-  .cards{grid-template-columns:repeat(7,1fr);gap:18px;}
+  .cards{grid-template-columns:repeat(8,1fr);gap:14px;}
   .genre-grid{grid-template-columns:repeat(6,1fr);gap:16px;}
   .dv-content{padding:30px 10%;}
   .hero{min-height:520px;max-height:600px;}
 }
 @media (min-width:1441px){
-  .cards{grid-template-columns:repeat(8,1fr);gap:20px;}
+  .cards{grid-template-columns:repeat(9,1fr);gap:16px;}
   .genre-grid{grid-template-columns:repeat(8,1fr);gap:18px;}
   .hero-content{max-width:640px;}
   .dv-content{padding:40px 12%;}
@@ -628,7 +651,6 @@ footer button{display:block;text-align:left;margin-bottom:6px;padding:4px 0;}
 
 <!-- DETAILS VIEW -->
 <div class="details-view" id="detailsView">
-  <!-- ✅ Header now outside video banner → fixed at top of viewport -->
   <div class="dv-header" id="dvHeader">
     <button class="dv-back" onclick="closeDetails()" aria-label="Back">←</button>
     <div class="dv-title-small" id="dvHeaderTitle">Title</div>
@@ -788,6 +810,8 @@ const QUALITY_KEYS = ["quality","Quality","qualityType","resolution","videoQuali
 const DESC_KEYS = ["description","Description","desc","overview","plot","summary","synopsis"];
 const COUNTRY_KEYS = ["country","Country","origin","language","lang"];
 const DURATION_KEYS = ["duration","Duration","runtime","runTime","length"];
+// ✅ NEW: Views Keys
+const VIEWS_KEYS = ["views", "view", "viewCount", "view_count", "viewsCount", "watchCount", "watches", "hits"];
 
 function firstStr(item, keys){
   if(!item) return "";
@@ -837,6 +861,17 @@ function getGenre(item){
   if(Array.isArray(g)) return g.join(", ");
   if(typeof g === "object") return Object.values(g).join(", ");
   return String(g);
+}
+
+// ✅ NEW: View Count Formatter Function
+function getViews(item) {
+  let v = firstStr(item, VIEWS_KEYS);
+  if (!v || v === "N/A") return "0";
+  const num = parseInt(v, 10);
+  if (isNaN(num)) return v; // If it's already formatted like "546.1K"
+  if (num >= 1000000) return (num / 1000000).toFixed(1) + "M";
+  if (num >= 1000) return (num / 1000).toFixed(1) + "K";
+  return num.toString();
 }
 
 function hasEpisodes(item){ return !!(item && (item.seasons || item.season || item.episodes || item.episode)); }
@@ -925,15 +960,22 @@ function rebuildContent(){
 }
 
 /* ============================================================
-   CARD
+   CARD - ✅ UPDATED to include Views Badge
    ============================================================ */
 function createCard(item){
   const poster = getPosterUrl(item) || 'https://via.placeholder.com/300x450/172330/55DFFF?text=No+Poster';
+  const views = getViews(item);
+  
   return `
     <div class="card" onclick="openDetails('${item.id}')">
       <div class="poster">
         <img data-src="${escapeHtml(poster)}" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 450'%3E%3Crect fill='%23172330' width='300' height='450'/%3E%3C/svg%3E" alt="${escapeHtml(getTitle(item))}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x450/172330/55DFFF?text=No+Poster';">
         <span class="quality">${escapeHtml(getQuality(item))}</span>
+        <!-- ✅ Views Badge -->
+        <span class="views-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+          ${escapeHtml(views)}
+        </span>
       </div>
       <div class="card-info">
         <div class="card-title">${escapeHtml(getTitle(item))}</div>
@@ -1095,7 +1137,7 @@ function normalizeVideoUrl(raw){
 }
 
 /* ============================================================
-   ✅ EPISODE BUILDER — now also keeps each episode's download links
+   ✅ EPISODE BUILDER
    ============================================================ */
 function buildEpisodes(raw){
   const list = [];
@@ -1168,6 +1210,9 @@ function openDetails(id){
   if(!item){ showToast("Content not found"); return; }
   currentContent = item;
 
+  // ✅ অটোমেটিক ভিউ বাড়ানোর ফাংশন কল করা হলো
+  incrementView(item);
+
   const title = getTitle(item);
   document.getElementById("dvHeaderTitle").textContent = title + " - SHANFILX";
   document.getElementById("dvTitle").textContent = title;
@@ -1227,13 +1272,36 @@ function openDetails(id){
   document.body.style.overflow = "hidden";
   dv.scrollTop = 0;
 
-  // ensure header is in "top-of-video" state
   const dvHeaderEl = document.getElementById("dvHeader");
   if(dvHeaderEl) dvHeaderEl.classList.remove("scrolled");
 }
 
+/* ============================================================
+   ✅ অটোমেটিক ভিউ কাউন্ট আপডেটার (Firebase Transaction)
+   ============================================================ */
+function incrementView(item) {
+  if (!db || !item || !item.id) return;
+  
+  // item.id ফরম্যাট হলো: "movies::movie_001"
+  const parts = item.id.split("::");
+  if (parts.length !== 2) return;
+  
+  const rootPath = parts[0]; // যেমন: movies
+  const key = parts[1];      // যেমন: movie_001
+
+  // Firebase Transaction ব্যবহার করে নিরাপদে ১ বাড়ানো
+  db.ref(rootPath + "/" + key + "/views").transaction(function(currentViews) {
+    let num = parseInt(currentViews, 10);
+    if (isNaN(num)) num = 0; // যদি আগে কোনো ভিউ না থাকে, তবে ০ থেকে শুরু হবে
+    return num + 1;          // ১ যোগ করে ডেটাবেসে সেভ করবে
+  }).then(() => {
+    console.log("✅ View incremented for:", getTitle(item));
+  }).catch(err => {
+    console.error("❌ View increment failed:", err);
+  });
+}
+
 function closeDetails(){
-  // Exit fullscreen if active
   const fsEl = document.fullscreenElement || document.webkitFullscreenElement ||
                document.mozFullScreenElement || document.msFullscreenElement;
   if(fsEl){
@@ -1310,9 +1378,7 @@ function loadVideoDirectly(){
 }
 
 /* ============================================================
-   ✅ AUTO FULLSCREEN + ORIENTATION LOCK
-   Works on Chrome/Edge Android, Safari 16.4+ (partial),
-   Firefox, and gracefully falls back on iOS / WebView.
+   FULLSCREEN + ORIENTATION LOCK
    ============================================================ */
 async function tryLockLandscape(){
   try{
@@ -1332,7 +1398,6 @@ async function tryUnlockOrientation(){
   }catch(e){}
 }
 
-/* Detect fullscreen change (from iframe's own button) */
 ['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange']
   .forEach(evt => {
     document.addEventListener(evt, () => {
@@ -1367,7 +1432,7 @@ document.addEventListener('click', () => {
 }, { passive: true });
 
 /* ============================================================
-   ✅ Header scrolled-state on details scroll
+   Header scrolled-state on details scroll
    ============================================================ */
 (function(){
   const dv = document.getElementById('detailsView');
@@ -1381,18 +1446,8 @@ document.addEventListener('click', () => {
 })();
 
 /* ============================================================
-   ✅ DOWNLOAD ENGINE — works for Movies + TV Series + K-Drama + Anime
-   ------------------------------------------------------------
-   Data shape supported (any one of these):
-     movie:  { "download": "https://..." }
-     movie:  { "download": { "720p":"url", "1080p":"url" } }
-     movie:  { "downloadUrl": "720p|url, 1080p|url" }
-     series: { "seasons": { "Season 1": { "1": { "video":"...", "download":"..." } } } }
-     series: { "episodes": { "1": { "video":"...", "download":"..." } } }
-     series: { "episodes": { "1": "videoUrl" }, "download": { "1":"dlUrl", "2":"dlUrl" } }
+   DOWNLOAD ENGINE
    ============================================================ */
-
-/* ---- low-level helpers ---- */
 function looksLikeDownloadUrl(v){
   if(typeof v !== "string") return false;
   const s = v.trim();
@@ -1411,7 +1466,6 @@ function prettyLabel(k){
   return s;
 }
 
-/* "720p|https://...,1080p|https://..."  →  [{quality,url}, ...] */
 function parseDownloadString(str){
   const out = [];
   if(str == null) return out;
@@ -1441,7 +1495,6 @@ function parseDownloadString(str){
   return out;
 }
 
-/* ---- recursive download-link extractor ---- */
 const DL_KEY_RE = /download|dl_?link|dl_?url|^dl$|_dl$|^dl_|dlink|get_?link/i;
 
 function extractDownloadLinks(node, opts, depth){
@@ -1463,7 +1516,6 @@ function extractDownloadLinks(node, opts, depth){
 
   const keys = Object.keys(node);
 
-  /* 1) explicit download keys win */
   let out = [];
   keys.forEach(k => {
     if(DL_KEY_RE.test(k)){
@@ -1473,13 +1525,11 @@ function extractDownloadLinks(node, opts, depth){
   });
   if(out.length) return out;
 
-  /* 2) { "720p":"url" }  or  { "1":"url", "2":"url" } map */
   const urlKeys = keys.filter(k => typeof node[k] === "string" && looksLikeDownloadUrl(node[k]));
   const objKeys = keys.filter(k => node[k] && typeof node[k] === "object");
 
   if(urlKeys.length && !objKeys.length){
     let use = urlKeys;
-    // pick only current episode when keys are episode numbers
     if(opts.epNum && use.length > 1 && use.every(isNumericKey)){
       const want = String(parseInt(opts.epNum, 10));
       const hit = use.filter(k => String(parseInt(k, 10)) === want);
@@ -1494,7 +1544,6 @@ function extractDownloadLinks(node, opts, depth){
     return out;
   }
 
-  /* 3) deep scan (season / episode containers) */
   if(opts.deep){
     objKeys.forEach(k => {
       out = out.concat(extractDownloadLinks(node[k], opts, depth + 1));
@@ -1515,12 +1564,10 @@ function dedupeDownloadLinks(links){
   return out;
 }
 
-/* ---- current episode / movie download links ---- */
 function getCurrentDownloadLinks(){
   if(!currentContent) return [];
   let links = [];
 
-  /* A) current episode's own download links */
   if(isSeriesType(currentContent) && currentSeasons.length){
     const season = currentSeasons[currentSeasonIdx];
     if(season && season.episodes && season.episodes.length){
@@ -1529,7 +1576,6 @@ function getCurrentDownloadLinks(){
     }
   }
 
-  /* B) fallback → title-level download links (episode-numbered maps supported) */
   if(!links.length){
     links = extractDownloadLinks(currentContent, { deep: false, epNum: currentEpIdx + 1 });
   }
@@ -1548,7 +1594,6 @@ function buildDownloadFileName(link){
   return name;
 }
 
-/* ---- download actions ---- */
 let currentDownloadLinks = [];
 
 function triggerDownload(url, title){
@@ -1743,7 +1788,6 @@ document.addEventListener("keydown", e => {
   }
 });
 
-/* Prevent Android back button from closing app while details/modal open */
 window.addEventListener('popstate', () => {
   const dv = document.getElementById('detailsView');
   if(dv && dv.classList.contains('active')){ closeDetails(); history.pushState(null, "", location.href); }
